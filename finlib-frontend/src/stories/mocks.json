@@ -1,0 +1,434 @@
+[
+  {
+    "id": "debt-phone-1",
+    "title": "The New Phone on Installments",
+    "category": "Debt",
+    "shortDescription": "You spot a dream phone and must choose between buying it on installments or waiting and saving. Learn how interest and monthly payments really work.",
+    "recommendedIf": "confidence <= 3 && familyTalk == 'sometimes'",
+    "blanks": [
+      {
+        "id": 1,
+        "prompt": "Your first name"
+      },
+      {
+        "id": 2,
+        "prompt": "A friend's name"
+      },
+      {
+        "id": 3,
+        "prompt": "Price of the new phone in euros (e.g., 899)"
+      },
+      {
+        "id": 4,
+        "prompt": "Number of months for the installment plan (e.g., 24)"
+      },
+      {
+        "id": 5,
+        "prompt": "Monthly interest rate in percent (e.g., 2.5)"
+      },
+      {
+        "id": 6,
+        "prompt": "Amount you can pay each month from your income"
+      },
+      {
+        "id": 7,
+        "prompt": "Name of the electronics store"
+      },
+      {
+        "id": 8,
+        "prompt": "Something else you are saving for (e.g., moped, laptop)"
+      },
+      {
+        "id": 9,
+        "prompt": "A social media app you use the most"
+      },
+      {
+        "id": 10,
+        "prompt": "A small weekly treat you like to buy"
+      }
+    ],
+    "storySentences": [
+      "At {{7}}, {{1}} sees a dream phone costing {{3}} euros and a big sign saying it can be paid in {{4}} months with {{5}}% interest per month.",
+      "The salesperson tells {{1}} that the monthly payment would be less than {{6}} euros, so it would easily fit next to {{10}} and other small expenses.",
+      "{{2}} reminds {{1}} that there is also the goal of saving for {{8}}, and that every euro going to the phone cannot go to that goal.",
+      "At home, {{1}} opens a calculator on {{9}} and works out that with interest, the total cost of the phone becomes much more than {{3}} euros over {{4}} months.",
+      "In the end, {{1}} decides to compare the total cost of the installment plan with saving up first, thinking about how it will affect {{8}} and even little things like {{10}}."
+    ],
+    "quiz": [
+      {
+        "question": "What does interest on an installment plan mean?",
+        "options": [
+          "An extra cost added on top of the price for borrowing the money",
+          "A discount you get for being interested in the product",
+          "A free insurance that comes with the phone"
+        ],
+        "answer": "An extra cost added on top of the price for borrowing the money"
+      },
+      {
+        "question": "Why should {{1}} think about the total cost over {{4}} months, not just the monthly payment?",
+        "options": [
+          "Because the store might run out of phones",
+          "Because small monthly payments can add up to a lot more than the original price",
+          "Because friends will laugh at small payments"
+        ],
+        "answer": "Because small monthly payments can add up to a lot more than the original price"
+      },
+      {
+        "question": "How does the phone purchase affect the goal of saving for {{8}}?",
+        "options": [
+          "It has no effect at all",
+          "Money used on phone payments cannot be saved for {{8}} at the same time",
+          "It makes {{8}} cheaper automatically"
+        ],
+        "answer": "Money used on phone payments cannot be saved for {{8}} at the same time"
+      }
+    ],
+    "lessons": [
+      "Always calculate the total cost of an installment plan, not just the monthly amount.",
+      "Interest makes borrowing more expensive than paying upfront.",
+      "Every euro spent on debt is a euro you cannot use for your other goals."
+    ],
+    "badge": "Debt Dodger",
+    "whatIfs": [
+      {
+        "title": "Choosing a Cheaper Used Phone",
+        "modifiedSentence5": "In the end, {{1}} decides to buy a cheaper used phone instead and puts the money saved each month toward {{8}} and still keeps enjoying {{10}}.",
+        "explanation": "By choosing a cheaper option, you may avoid debt completely and reach your other savings goals faster."
+      },
+      {
+        "title": "Shorter Installment Plan, Bigger Monthly Payment",
+        "modifiedSentence5": "In the end, {{1}} picks a shorter installment plan than {{4}} months, which makes each payment higher but reduces the total interest paid and keeps room in the budget for {{8}}.",
+        "explanation": "A shorter loan usually means less interest overall but requires you to be sure you can handle the higher monthly payments."
+      },
+      {
+        "title": "Not Checking the Interest at All",
+        "modifiedSentence5": "In the end, {{1}} signs the contract without really understanding the {{5}}% interest and later realizes that there is no money left for {{8}} or even for small treats like {{10}}.",
+        "explanation": "If you agree to a loan without reading the terms, the payments can become heavier than you expected and squeeze your whole budget."
+      }
+    ]
+  },
+  {
+    "id": "debt-festival-1",
+    "title": "Festival Ticket and a Friend's Loan",
+    "shortDescription": "You really want to go to a summer festival and must decide whether to borrow from a friend or use a quick loan. Think about what it means to owe money.",
+    "recommendedIf": "(gender == 'female' || gender == 'other') && confidence >= 3 && familyTalk != 'often'",
+    "category": "Debt",
+    "blanks": [
+      {
+        "id": 1,
+        "prompt": "Your first name"
+      },
+      {
+        "id": 2,
+        "prompt": "Name of a music festival or event"
+      },
+      {
+        "id": 3,
+        "prompt": "Price of the festival ticket in euros"
+      },
+      {
+        "id": 4,
+        "prompt": "A close friend's first name"
+      },
+      {
+        "id": 5,
+        "prompt": "Date you promise to pay the money back (e.g., 15 August)"
+      },
+      {
+        "id": 6,
+        "prompt": "A side job you could do (e.g., walking dogs, babysitting)"
+      },
+      {
+        "id": 7,
+        "prompt": "Amount of monthly pocket money or allowance you get"
+      },
+      {
+        "id": 8,
+        "prompt": "Name of a buy now, pay later or quick loan app/service you have heard of"
+      },
+      {
+        "id": 9,
+        "prompt": "Number of months you would be in debt if you used a quick loan (e.g., 6)"
+      },
+      {
+        "id": 10,
+        "prompt": "Something you would cut from your spending to pay back the loan (e.g., café trips)"
+      }
+    ],
+    "storySentences": [
+      "{{1}} sees that tickets for {{2}} cost {{3}} euros, but the next allowance of {{7}} euros will not arrive before the ticket sale starts.",
+      "A quick tap on the phone shows an ad for {{8}}, which promises that you can buy the ticket now and pay it back over {{9}} months with added fees.",
+      "{{4}} offers to lend {{1}} the {{3}} euros interest-free if {{1}} promises to pay it back by {{5}} using money from {{6}} and by skipping some {{10}}.",
+      "{{1}} thinks about how it would feel to owe money to {{4}} compared to owing money to a company like {{8}}, and what happens if paying back on {{5}} is harder than planned.",
+      "Finally, {{1}} chooses the option that feels most responsible, writes down a payback plan including {{6}} and cutting {{10}}, and clearly agrees with {{4}} or {{8}} about how and when the money will be repaid."
+    ],
+    "quiz": [
+      {
+        "question": "What is one risk of using a quick loan service like {{8}} for a festival ticket?",
+        "options": [
+          "You might get a free upgrade to VIP tickets",
+          "Fees and interest can make the ticket much more expensive over time",
+          "You will never have to pay it back"
+        ],
+        "answer": "Fees and interest can make the ticket much more expensive over time"
+      },
+      {
+        "question": "What is important if you borrow money from a friend like {{4}}?",
+        "options": [
+          "Not telling them when you will pay it back",
+          "Having a clear plan and date, like {{5}}, to pay the money back",
+          "Asking them to borrow even more, just in case"
+        ],
+        "answer": "Having a clear plan and date, like {{5}}, to pay the money back"
+      },
+      {
+        "question": "How can {{1}} make it easier to repay the money?",
+        "options": [
+          "By ignoring the debt and hoping it disappears",
+          "By doing extra work like {{6}} and cutting back on things like {{10}}",
+          "By immediately taking another loan to cover the first one"
+        ],
+        "answer": "By doing extra work like {{6}} and cutting back on things like {{10}}"
+      }
+    ],
+    "lessons": [
+      "Quick loans for fun purchases can become expensive and long-lasting debts.",
+      "Borrowing from friends can be cheaper but may affect the friendship if you do not pay on time.",
+      "Always make a realistic payback plan before borrowing money from anyone."
+    ],
+    "badge": "Debt Dodger",
+    "whatIfs": [
+      {
+        "title": "Choosing Not to Go This Year",
+        "modifiedSentence5": "Finally, {{1}} decides to skip {{2}} this year, saves the {{7}} euros of allowance instead, and plans to afford the ticket next time without any debt.",
+        "explanation": "Sometimes the best choice is to wait and save so you can enjoy events without the stress of owing money."
+      },
+      {
+        "title": "Taking the Quick Loan Anyway",
+        "modifiedSentence5": "Finally, {{1}} signs up to {{8}}, spreads the cost over {{9}} months, and realizes that the fees mean paying much more than {{3}} euros while cutting even more {{10}} than planned.",
+        "explanation": "Using a loan for short fun can lead to long periods of paying back, limiting your budget for other things."
+      },
+      {
+        "title": "Late Paying Back a Friend",
+        "modifiedSentence5": "Finally, {{1}} borrows from {{4}} but does not manage to pay it back by {{5}}, which makes things awkward even when they try to do extra {{6}} and cut {{10}}.",
+        "explanation": "Being late with repayments to friends can damage trust, so honesty and quick communication are very important."
+      }
+    ]
+  },
+  {
+    "id": "budget-summerjob-1",
+    "title": "First Summer Job Budget",
+    "shortDescription": "Your first proper paycheck arrives, and you decide how to split it between bills, fun, and savings. Learn how a simple budget gives you control.",
+    "recommendedIf": "confidence >= 2 && confidence <= 5 && familyTalk == 'often'",
+    "category": "Budgeting",
+    "blanks": [
+      {
+        "id": 1,
+        "prompt": "Your first name"
+      },
+      {
+        "id": 2,
+        "prompt": "Your net salary from one month of summer work in euros"
+      },
+      {
+        "id": 3,
+        "prompt": "A fixed monthly bill you pay (e.g., phone bill, Spotify)"
+      },
+      {
+        "id": 4,
+        "prompt": "The amount of that bill in euros"
+      },
+      {
+        "id": 5,
+        "prompt": "Another regular cost (e.g., bus card, school lunch money)"
+      },
+      {
+        "id": 6,
+        "prompt": "The amount of that cost in euros"
+      },
+      {
+        "id": 7,
+        "prompt": "A savings goal (e.g., trip to Stockholm, gaming PC)"
+      },
+      {
+        "id": 8,
+        "prompt": "Amount you want to save each month toward {{7}}"
+      },
+      {
+        "id": 9,
+        "prompt": "A typical temptation to spend on (e.g., online clothes, food delivery)"
+      },
+      {
+        "id": 10,
+        "prompt": "A trusted adult you could talk to about money (e.g., mom, big brother, counsellor)"
+      }
+    ],
+    "storySentences": [
+      "When the first summer job salary of {{2}} euros hits the account, {{1}} feels rich and starts dreaming about {{7}} and lots of {{9}}.",
+      "{{1}} writes down a simple budget: pay the {{3}} of {{4}} euros, cover {{5}} of {{6}} euros, and then decide how much is left for {{7}} and fun spending like {{9}}.",
+      "After subtracting {{4}} and {{6}}, {{1}} sees that there is still room to put {{8}} euros straight into savings for {{7}} if they do not overspend on {{9}}.",
+      "{{1}} shows the plan to {{10}}, who helps double-check the numbers and suggests moving the {{8}} euros to a separate savings account right after each salary arrives.",
+      "Following the plan, {{1}} pays {{3}} and {{5}}, saves {{8}} euros toward {{7}}, and still keeps part of the money for carefully chosen {{9}} without going over the budget."
+    ],
+    "quiz": [
+      {
+        "question": "Why is it smart for {{1}} to write down the costs like {{3}} and {{5}}?",
+        "options": [
+          "So they can forget about them later",
+          "So they can see how much money is left after the must-pay bills",
+          "So they can spend more on {{9}}"
+        ],
+        "answer": "So they can see how much money is left after the must-pay bills"
+      },
+      {
+        "question": "What is one good way to make sure {{8}} euros really go to savings for {{7}}?",
+        "options": [
+          "Keep it as cash in a pocket",
+          "Transfer it straight to a separate savings account when the salary comes",
+          "Use it first for {{9}} and save only what is left"
+        ],
+        "answer": "Transfer it straight to a separate savings account when the salary comes"
+      },
+      {
+        "question": "How does a budget help with temptations like {{9}}?",
+        "options": [
+          "It bans all fun spending forever",
+          "It shows how much you can spend on fun without ruining your other goals",
+          "It tells you to ignore bills like {{3}} and {{5}}"
+        ],
+        "answer": "It shows how much you can spend on fun without ruining your other goals"
+      }
+    ],
+    "lessons": [
+      "A simple written budget helps you see where your money should go.",
+      "Pay fixed costs and savings first, then decide how much is left for fun.",
+      "Separating savings into another account makes it easier not to touch them."
+    ],
+    "badge": "Budget Boss",
+    "whatIfs": [
+      {
+        "title": "Spending First, Budgeting Later",
+        "modifiedSentence5": "Instead of following the plan, {{1}} spends freely on {{9}} and only after that remembers {{3}}, {{5}}, and saving for {{7}}, which leaves almost nothing to save.",
+        "explanation": "If you spend first and think later, your goals like {{7}} tend to disappear because the money is already gone."
+      },
+      {
+        "title": "Raising the Savings Goal",
+        "modifiedSentence5": "Following the plan, {{1}} decides to save even more than {{8}} euros toward {{7}} and cuts down a bit on {{9}}, reaching the goal faster.",
+        "explanation": "Increasing savings and lowering optional spending helps you reach big goals sooner, if the plan still feels realistic."
+      },
+      {
+        "title": "Forgetting a Fixed Cost",
+        "modifiedSentence5": "Following a half-finished plan, {{1}} forgets to include {{5}} in the budget, so after paying {{3}}, saving {{8}} for {{7}}, and spending on {{9}}, there is not enough left when {{5}} is charged.",
+        "explanation": "Missing even one regular bill can mess up your budget and may lead to late fees or stress."
+      }
+    ]
+  },
+  {
+    "id": "scam-message-1",
+    "title": "The Suspicious Bank Message",
+    "shortDescription": "You receive a scary message about your bank account and must decide whether it is real or a scam. Learn how to protect your money and identity.",
+    "recommendedIf": "familyTalk == 'never' || familyTalk == 'rarely'",
+    "category": "Scams",
+    "blanks": [
+      {
+        "id": 1,
+        "prompt": "Your first name"
+      },
+      {
+        "id": 2,
+        "prompt": "Name of your bank"
+      },
+      {
+        "id": 3,
+        "prompt": "Amount of money you think you have in your account"
+      },
+      {
+        "id": 4,
+        "prompt": "Suspicious link text or address from the message"
+      },
+      {
+        "id": 5,
+        "prompt": "Name of a friend you might ask for advice"
+      },
+      {
+        "id": 6,
+        "prompt": "The device you are using when you get the message (e.g., phone, laptop)"
+      },
+      {
+        "id": 7,
+        "prompt": "A word the message uses to scare you (e.g., urgent, warning)"
+      },
+      {
+        "id": 8,
+        "prompt": "What the sender claims to be (e.g., bank security, police)"
+      },
+      {
+        "id": 9,
+        "prompt": "A safe official contact channel of your bank (e.g., in-app chat, phone number on website)"
+      },
+      {
+        "id": 10,
+        "prompt": "Something only the real bank should know (e.g., last 4 digits of your card)"
+      }
+    ],
+    "storySentences": [
+      "While scrolling on {{6}}, {{1}} gets an {{7}} message that looks like it is from {{2}}, saying the account with about {{3}} euros is blocked and must be fixed immediately.",
+      "The message tells {{1}} to click {{4}} and log in with online banking codes so that {{8}} can \"secure\" the account, but something about the spelling and tone feels off.",
+      "{{1}} shows the message to {{5}}, and together they notice that it does not include personal details like {{10}} and that the sender address is different from earlier real messages from {{2}}.",
+      "Instead of clicking {{4}}, {{1}} closes the message and contacts {{2}} using the official channel {{9}}, where they confirm that the message is a scam and that the bank would never ask for codes like that.",
+      "Relieved, {{1}} deletes the message, warns {{5}} and other friends, and decides to always double-check strange {{7}} messages about money before doing anything with links or login codes."
+    ],
+    "quiz": [
+      {
+        "question": "What is the safest way for {{1}} to check if the message from \"{{2}}\" is real?",
+        "options": [
+          "Click the link {{4}} immediately and follow instructions",
+          "Reply to the message with banking codes",
+          "Use official contact details like {{9}} found on {{2}}'s real website or app"
+        ],
+        "answer": "Use official contact details like {{9}} found on {{2}}'s real website or app"
+      },
+      {
+        "question": "Which detail is a strong sign that the message might be a scam?",
+        "options": [
+          "It mentions the name of the bank {{2}}",
+          "It has spelling errors, weird tone, and asks you to log in through {{4}}",
+          "It arrives in the evening"
+        ],
+        "answer": "It has spelling errors, weird tone, and asks you to log in through {{4}}"
+      },
+      {
+        "question": "Why should {{1}} never share online banking codes through a link like {{4}}?",
+        "options": [
+          "Because codes only work on weekends",
+          "Because scammers can steal money and your identity with those codes",
+          "Because it makes the internet slower"
+        ],
+        "answer": "Because scammers can steal money and your identity with those codes"
+      }
+    ],
+    "lessons": [
+      "Real banks never ask you to log in through random links sent by message.",
+      "Always use official contact details from your bank's website or app to check strange messages.",
+      "If something feels off, stop, ask someone you trust, and do not rush because of scary words like urgent."
+    ],
+    "badge": "Scam Slayer",
+    "whatIfs": [
+      {
+        "title": "Clicking the Link",
+        "modifiedSentence5": "Panicking, {{1}} clicks {{4}}, types in the online banking codes, and later learns that scammers have taken money from the {{2}} account instead of protecting it.",
+        "explanation": "If you log in through a fake link, scammers can capture your codes and empty your account or take loans in your name."
+      },
+      {
+        "title": "Ignoring All Messages",
+        "modifiedSentence5": "Annoyed by scams, {{1}} decides to ignore all messages from banks, but later almost misses a real security warning from {{2}} that came through the official {{9}} channel.",
+        "explanation": "It is important not to panic, but also not to ignore real warnings, so always check using trusted contact details."
+      },
+      {
+        "title": "Friend Also Got the Same Scam",
+        "modifiedSentence5": "Relieved, {{1}} deletes the message, warns {{5}} and other friends, and they all share screenshots of similar {{7}} messages trying to trick them with links like {{4}}.",
+        "explanation": "Talking openly about scams helps others spot them too and makes it harder for scammers to succeed."
+      }
+    ]
+  }
+]
