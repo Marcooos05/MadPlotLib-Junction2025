@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import OnboardingView from './views/OnboardingView';
+import Onboarding from './components/Onboarding';
 import Stories from './components/Stories';
 
 function App() {
