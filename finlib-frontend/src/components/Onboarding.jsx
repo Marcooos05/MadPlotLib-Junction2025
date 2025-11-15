@@ -3,35 +3,41 @@ import { useNavigate } from 'react-router-dom';
 import { signInAnonymously } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase.js';
+import SelectionCards from './SelectionCards';
+import ConfidenceSlider from './ConfidenceSlider';
 
 const Onboarding = () => {
   const [profile, setProfile] = useState({
     name: '',
     gender: '',
-    confidence: '',
+    confidence: '3',
     familyTalk: ''
   });
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Animate inputs
-    const inputs = document.querySelectorAll('.onboarding input, .onboarding select');
-    inputs.forEach((input, index) => {
+    // Animate cards
+    const cards = document.querySelectorAll('.selection-card');
+    cards.forEach((card, index) => {
       setTimeout(() => {
-        input.style.opacity = '1';
+        card.style.opacity = '1';
       }, index * 200);
     });
   }, []);
 
-  const handleChange = (e) => {
+  const handleChange = (field, value) => {
     setProfile({
       ...profile,
-      [e.target.name]: e.target.value
+      [field]: value
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!profile.name || !profile.gender || !profile.familyTalk) {
+      alert('Please fill all fields');
+      return;
+    }
     try {
       await signInAnonymously(auth);
       const user = auth.currentUser;
@@ -49,6 +55,19 @@ const Onboarding = () => {
     navigate('/stories');
   };
 
+  const genderOptions = [
+    { value: 'male', label: 'Male' },
+    { value: 'female', label: 'Female' },
+    { value: 'other', label: 'Other' }
+  ];
+
+  const familyTalkOptions = [
+    { value: 'never', label: 'Never' },
+    { value: 'rarely', label: 'Rarely' },
+    { value: 'sometimes', label: 'Sometimes' },
+    { value: 'often', label: 'Often' }
+  ];
+
   return (
     <div className="onboarding">
       <div className="background"></div>
@@ -57,35 +76,27 @@ const Onboarding = () => {
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          name="name"
-          placeholder="Your name"
+          placeholder="Enter your name"
           value={profile.name}
-          onChange={handleChange}
+          onChange={(e) => handleChange('name', e.target.value)}
           required
         />
-        <select name="gender" value={profile.gender} onChange={handleChange} required>
-          <option value="">Select gender</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-          <option value="other">Other</option>
-        </select>
-        <input
-          type="number"
-          name="confidence"
-          placeholder="Confidence in digital payments (1-5)"
-          min="1"
-          max="5"
+        <SelectionCards
+          label="Gender"
+          options={genderOptions}
+          selected={profile.gender}
+          onSelect={(value) => handleChange('gender', value)}
+        />
+        <ConfidenceSlider
           value={profile.confidence}
-          onChange={handleChange}
-          required
+          onChange={(value) => handleChange('confidence', value)}
         />
-        <select name="familyTalk" value={profile.familyTalk} onChange={handleChange} required>
-          <option value="">How often does your family talk about money?</option>
-          <option value="never">Never</option>
-          <option value="rarely">Rarely</option>
-          <option value="sometimes">Sometimes</option>
-          <option value="often">Often</option>
-        </select>
+        <SelectionCards
+          label="How often does your family talk about money?"
+          options={familyTalkOptions}
+          selected={profile.familyTalk}
+          onSelect={(value) => handleChange('familyTalk', value)}
+        />
         <button type="submit">Start My Journey</button>
       </form>
     </div>

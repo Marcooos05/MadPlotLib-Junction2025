@@ -1,3 +1,237 @@
+:root {
+  --mint: #A3E4D7;
+  --coral: #FF6B6B;
+  --orange: #F39C6B;
+  --bg: #F8FAFC;
+  --text: #2D3436;
+  --success: #27AE60;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+/* Onboarding Styles */
+.onboarding {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.onboarding .background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, var(--bg) 0%, #e8f6f3 100%);
+  z-index: -1;
+}
+
+.onboarding h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--text);
+  max-width: 600px;
+}
+
+.onboarding p {
+  margin-bottom: 40px;
+  font-size: 1.2rem;
+  color: #5a6c7d;
+  max-width: 500px;
+}
+
+.onboarding form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  width: 100%;
+  max-width: 500px;
+}
+
+.onboarding input[type="text"] {
+  width: 100%;
+  padding: 16px 20px;
+  border: 2px solid var(--mint);
+  border-radius: 16px;
+  font-size: 1.1rem;
+  background: white;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(163, 228, 215, 0.1);
+}
+
+.onboarding input[type="text"]:focus {
+  outline: none;
+  border-color: var(--success);
+  box-shadow: 0 4px 16px rgba(163, 228, 215, 0.3);
+  transform: translateY(-2px);
+}
+
+.onboarding input[type="text"]::placeholder {
+  color: #a0aec0;
+}
+
+.section-label {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 16px;
+  text-align: left;
+  width: 100%;
+}
+
+.selection-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  width: 100%;
+}
+
+.selection-card {
+  padding: 20px;
+  border: 3px solid var(--mint);
+  border-radius: 16px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--text);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.selection-card:hover {
+  background: rgba(163, 228, 215, 0.15);
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(163, 228, 215, 0.3);
+}
+
+.selection-card.selected {
+  background: var(--mint);
+  color: white;
+  border-color: var(--success);
+  box-shadow: 0 6px 16px rgba(39, 174, 96, 0.3);
+  transform: scale(1.05);
+}
+
+.slider-container {
+  width: 100%;
+  padding: 24px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.slider-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  font-size: 0.95rem;
+  color: #5a6c7d;
+  font-weight: 500;
+}
+
+.slider {
+  width: 100%;
+  height: 10px;
+  border-radius: 8px;
+  background: linear-gradient(to right, var(--coral), var(--mint), var(--success));
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 16px 0;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: white;
+  cursor: pointer;
+  border: 4px solid var(--mint);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  border-color: var(--success);
+}
+
+.slider::-moz-range-thumb {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: white;
+  cursor: pointer;
+  border: 4px solid var(--mint);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.slider::-moz-range-thumb:hover {
+  transform: scale(1.2);
+  border-color: var(--success);
+}
+
+.slider-value {
+  text-align: center;
+  margin-top: 16px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.onboarding button[type="submit"] {
+  padding: 18px 48px;
+  background: linear-gradient(135deg, var(--mint) 0%, var(--success) 100%);
+  color: white;
+  border: none;
+  border-radius: 16px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(39, 174, 96, 0.3);
+  margin-top: 16px;
+}
+
+.onboarding button[type="submit"]:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(39, 174, 96, 0.4);
+}
+
+.onboarding button[type="submit"]:active {
+  transform: translateY(-2px);
+}
+
+/* Story Picker Styles */
 .story-picker {
   padding: 20px;
   text-align: center;
@@ -43,6 +277,7 @@
   color: white;
 }
 
+/* MadLib Styles */
 .madlib {
   padding: 20px;
   text-align: center;
