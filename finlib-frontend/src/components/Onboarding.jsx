@@ -13,6 +13,7 @@ const Onboarding = () => {
     confidence: '3',
     familyTalk: ''
   });
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -38,6 +39,7 @@ const Onboarding = () => {
       alert('Please fill all fields');
       return;
     }
+    setLoading(true);
     try {
       await signInAnonymously(auth);
       const user = auth.currentUser;
@@ -48,17 +50,21 @@ const Onboarding = () => {
         });
         localStorage.setItem('profile', JSON.stringify(profile));
       }
+      navigate('/stories');
     } catch (error) {
       console.error('Error saving profile:', error);
       localStorage.setItem('profile', JSON.stringify(profile));
+      navigate('/stories');
+    } finally {
+      setLoading(false);
     }
-    navigate('/stories');
   };
 
   const genderOptions = [
     { value: 'male', label: 'Male' },
     { value: 'female', label: 'Female' },
-    { value: 'other', label: 'Other' }
+    { value: 'other', label: 'Other' },
+    { value: 'prefer-not-to-say', label: 'Prefer not to say' }
   ];
 
   const familyTalkOptions = [
@@ -97,7 +103,9 @@ const Onboarding = () => {
           selected={profile.familyTalk}
           onSelect={(value) => handleChange('familyTalk', value)}
         />
-        <button type="submit">Start My Journey</button>
+        <button type="submit" disabled={loading}>
+          {loading ? 'Starting...' : 'Start My Journey'}
+        </button>
       </form>
     </div>
   );
