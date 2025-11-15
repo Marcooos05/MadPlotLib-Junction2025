@@ -5,6 +5,15 @@
     "category": "Debt",
     "shortDescription": "You spot a dream phone and must choose between buying it on installments or waiting and saving. Learn how interest and monthly payments really work.",
     "recommendedIf": "confidence <= 3 && familyTalk == 'sometimes'",
+    "comic": {
+      "images": [
+        "https://via.placeholder.com/400x300?text=Comic+Frame+1",
+        "https://via.placeholder.com/400x300?text=Comic+Frame+2",
+        "https://via.placeholder.com/400x300?text=Comic+Frame+3",
+        "https://via.placeholder.com/400x300?text=Comic+Frame+4"
+      ],
+      "audio": "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav"
+    },
     "blanks": [
       {
         "id": 1,
@@ -113,6 +122,15 @@
     "shortDescription": "You really want to go to a summer festival and must decide whether to borrow from a friend or use a quick loan. Think about what it means to owe money.",
     "recommendedIf": "(gender == 'female' || gender == 'other') && confidence >= 3 && familyTalk != 'often'",
     "category": "Debt",
+    "comic": {
+      "images": [
+        "https://via.placeholder.com/400x300?text=Festival+Comic+1",
+        "https://via.placeholder.com/400x300?text=Festival+Comic+2",
+        "https://via.placeholder.com/400x300?text=Festival+Comic+3",
+        "https://via.placeholder.com/400x300?text=Festival+Comic+4"
+      ],
+      "audio": "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav"
+    },
     "blanks": [
       {
         "id": 1,
@@ -221,6 +239,15 @@
     "shortDescription": "Your first proper paycheck arrives, and you decide how to split it between bills, fun, and savings. Learn how a simple budget gives you control.",
     "recommendedIf": "confidence >= 2 && confidence <= 5 && familyTalk == 'often'",
     "category": "Budgeting",
+    "comic": {
+      "images": [
+        "https://via.placeholder.com/400x300?text=Budget+Comic+1",
+        "https://via.placeholder.com/400x300?text=Budget+Comic+2",
+        "https://via.placeholder.com/400x300?text=Budget+Comic+3",
+        "https://via.placeholder.com/400x300?text=Budget+Comic+4"
+      ],
+      "audio": "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav"
+    },
     "blanks": [
       {
         "id": 1,
@@ -329,6 +356,15 @@
     "shortDescription": "You receive a scary message about your bank account and must decide whether it is real or a scam. Learn how to protect your money and identity.",
     "recommendedIf": "familyTalk == 'never' || familyTalk == 'rarely'",
     "category": "Scams",
+    "comic": {
+      "images": [
+        "https://via.placeholder.com/400x300?text=Scam+Comic+1",
+        "https://via.placeholder.com/400x300?text=Scam+Comic+2",
+        "https://via.placeholder.com/400x300?text=Scam+Comic+3",
+        "https://via.placeholder.com/400x300?text=Scam+Comic+4"
+      ],
+      "audio": "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav"
+    },
     "blanks": [
       {
         "id": 1,

@@ -1,78 +1,62 @@
-:root {
-  --mint: #A3E4D7;
-  --coral: #FF6B6B;
-  --orange: #F39C6B;
-  --bg: #F8FAFC;
-  --text: #2D3436;
-  --success: #27AE60;
-}
-
-body {
-  margin: 0;
-  font-family: 'Inter', sans-serif;
-  background-color: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-}
-
-.onboarding {
-  position: relative;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+.story-picker {
   padding: 20px;
   text-align: center;
 }
 
-.onboarding .background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="%23A3E4D7" opacity="0.1"/></svg>') repeat;
-  z-index: -1;
-}
-
-.onboarding h1 {
-  font-size: 2rem;
-  margin-bottom: 10px;
-  color: var(--text);
-}
-
-.onboarding p {
-  margin-bottom: 30px;
-  font-size: 1.1rem;
-}
-
-.onboarding form {
+.horizontal-scroll {
   display: flex;
-  flex-direction: column;
+  overflow-x: auto;
   gap: 20px;
+  padding: 10px 0;
+}
+
+.story-card {
+  min-width: 250px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  cursor: pointer;
+  background: white;
+}
+
+.story-card.recommended {
+  border: 2px solid var(--mint);
+  box-shadow: 0 0 10px var(--mint);
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.tabs button {
+  padding: 10px 20px;
+  border: none;
+  background: #f0f0f0;
+  cursor: pointer;
+}
+
+.tabs button.active {
+  background: var(--mint);
+  color: white;
+}
+
+.madlib {
+  padding: 20px;
+  text-align: center;
+}
+
+.blank-input {
+  margin: 40px 0;
+}
+
+.blank-input input {
   width: 100%;
   max-width: 400px;
-}
-
-.onboarding input, .onboarding select {
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 1rem;
-  opacity: 0;
-  transition: opacity 0.5s;
-}
-
-.onboarding button {
-  padding: 12px;
-  background-color: var(--mint);
-  color: var(--text);
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  cursor: pointer;
-  margin-top: 20px;
+  padding: 10px;
+  font-size: 18px;
 }
 
 .logo {
