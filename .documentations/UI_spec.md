@@ -1,5 +1,12 @@
 # MadLib Financial Literacy – User Interface Design Document
 
+## Framework & Technology
+- **Frontend Framework**: React 18 with Vite for fast development and building.
+- **Routing**: React Router for client-side navigation.
+- **Styling**: CSS modules or styled-components for component-scoped styles, with global CSS variables for theme consistency.
+- **State Management**: React hooks (useState, useEffect) for local state; Context API or Redux for global state if needed.
+- **Components**: Custom React components with accessibility-first design, using semantic HTML and ARIA attributes.
+
 ## Layout Structure
 - **100% mobile-first vertical single-page flow** (no horizontal navigation, no desktop sidebar).
 - Full-screen screens that advance only forward (back button allowed but discouraged).
@@ -9,17 +16,17 @@
 
 ## Core Components
 - **Splash / Onboarding**: Full-screen cartoon background (worried teen with empty wallet), large headline, 4 big rounded input cards that animate in one-by-one.
-- **Story Picker**: Horizontal scrollable cards at top (Recommended card 1.5× larger + glowing border + “Made for you” ribbon), tabs below for categories.
+- **Story Picker**: Horizontal scrollable cards at top (Recommended card 1.5× larger + glowing border + "Made for you" ribbon), tabs below for categories.
 - **MadLib Input**: One blank per full-screen at a time, huge text input with funny placeholder, swipe-up or big arrow to next.
 - **Comic Player**: Full-screen black borders, auto-advance frames (2–3 s each), speaker icon pulsing with voice, replay FAB bottom-right.
 - **Quiz**: 3 vertical cards, swipe left/right, right for answer, instant confetti explosion + explanation card.
 - **What-If Explorer**: 3 large rounded cards in column, tap/hold reveals alternate frame + short text bubble.
-- **Victory Screen**: Badge hero image top half, stitched comic below, big pulsing share button, “Play another” CTA.
+- **Victory Screen**: Badge hero image top half, stitched comic below, big pulsing share button, "Play another" CTA.
 
 ## Interaction Patterns
 - Vertical swipe-to-advance everywhere (feels native on phone).
 - Big tappable areas (min 60 dp touch targets).
-- Micro-animations: confetti on correct quiz answer, “poof” smoke when wrong, gentle bounce on recommended card.
+- Micro-animations: confetti on correct quiz answer, "poof" smoke when wrong, gentle bounce on recommended card.
 - Voiceover auto-plays once, replay on tap.
 - All buttons use haptic feedback (subtle vibration on tap).
 - No text-heavy screens — max 12 words per screen outside comic.
@@ -39,7 +46,7 @@
 ## Mobile, Web App, Desktop Considerations
 - **Mobile only in practice** — responsive but optimised for portrait phone.
 - Force portrait mode.
-- Web/desktop: show centred phone frame with “Best on mobile” message + QR code.
+- Web/desktop: show centred phone frame with "Best on mobile" message + QR code.
 - No mouse hover states — everything tap/swipe.
 
 ## Typography
