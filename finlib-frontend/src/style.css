@@ -241,6 +241,21 @@ body {
 .badge.budgeting { background: #6FCF97; }
 .badge.scams { background: #F2994A; }
 
+/* Ensure story-card topic badges are compact and neat (override larger .badge rules) */
+.story-card .badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 10px;
+  height: 32px;
+  min-width: 36px;
+  font-size: 0.85rem;
+  border-radius: 12px;
+  box-shadow: none;
+}
+
+.story-card .badge::before { content: ''; display: inline-block; width: 8px; }
+
 .card-footer { margin-top: 12px; display:flex; justify-content:flex-end; }
 .card-footer .select {
   background: transparent;
