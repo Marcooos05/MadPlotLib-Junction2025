@@ -18,7 +18,7 @@
     "blanks": [
       {
         "id": 1,
-        "prompt": "Your first name"
+        "prompt": "A name"
       },
       {
         "id": 2,
@@ -26,35 +26,35 @@
       },
       {
         "id": 3,
-        "prompt": "Price of the new phone in euros (e.g., 899)"
+        "prompt": "A big number"
       },
       {
         "id": 4,
-        "prompt": "Number of months for the installment plan (e.g., 24)"
+        "prompt": "Number of months"
       },
       {
         "id": 5,
-        "prompt": "Monthly interest rate in percent (e.g., 2.5)"
+        "prompt": "A percent number"
       },
       {
         "id": 6,
-        "prompt": "Amount you can pay each month from your income"
+        "prompt": "A smaller amount"
       },
       {
         "id": 7,
-        "prompt": "Name of the electronics store"
+        "prompt": "Shop name"
       },
       {
         "id": 8,
-        "prompt": "Something else you are saving for (e.g., moped, laptop)"
+        "prompt": "Something you want"
       },
       {
         "id": 9,
-        "prompt": "A social media app you use the most"
+        "prompt": "An app"
       },
       {
         "id": 10,
-        "prompt": "A small weekly treat you like to buy"
+        "prompt": "A weekly treat"
       }
     ],
     "storySentences": [
@@ -136,43 +136,43 @@
     "blanks": [
       {
         "id": 1,
-        "prompt": "Your first name"
+        "prompt": "A name"
       },
       {
         "id": 2,
-        "prompt": "Name of a music festival or event"
+        "prompt": "An event"
       },
       {
         "id": 3,
-        "prompt": "Price of the festival ticket in euros"
+        "prompt": "Price"
       },
       {
         "id": 4,
-        "prompt": "A close friend's first name"
+        "prompt": "A friend's name"
       },
       {
         "id": 5,
-        "prompt": "Date you promise to pay the money back (e.g., 15 August)"
+        "prompt": "A date"
       },
       {
         "id": 6,
-        "prompt": "A side job you could do (e.g., walking dogs, babysitting)"
+        "prompt": "A side hustle"
       },
       {
         "id": 7,
-        "prompt": "Amount of monthly pocket money or allowance you get"
+        "prompt": "Allowance amount"
       },
       {
         "id": 8,
-        "prompt": "Name of a buy now, pay later or quick loan app/service you have heard of"
+        "prompt": "A company name"
       },
       {
         "id": 9,
-        "prompt": "Number of months you would be in debt if you used a quick loan (e.g., 6)"
+        "prompt": "A number"
       },
       {
         "id": 10,
-        "prompt": "Something you would cut from your spending to pay back the loan (e.g., café trips)"
+        "prompt": "A weekly purchase"
       }
     ],
     "storySentences": [
@@ -254,43 +254,43 @@
     "blanks": [
       {
         "id": 1,
-        "prompt": "Your first name"
+        "prompt": "A name"
       },
       {
         "id": 2,
-        "prompt": "Your net salary from one month of summer work in euros"
+        "prompt": "A salary amount"
       },
       {
         "id": 3,
-        "prompt": "A fixed monthly bill you pay (e.g., phone bill, Spotify)"
+        "prompt": "A common purchase"
       },
       {
         "id": 4,
-        "prompt": "The amount of that bill in euros"
+        "prompt": "An amount"
       },
       {
         "id": 5,
-        "prompt": "Another regular cost (e.g., bus card, school lunch money)"
+        "prompt": "Another common purchase"
       },
       {
         "id": 6,
-        "prompt": "The amount of that cost in euros"
+        "prompt": "An amount"
       },
       {
         "id": 7,
-        "prompt": "A savings goal (e.g., trip to Stockholm, gaming PC)"
+        "prompt": "Savings goal"
       },
       {
         "id": 8,
-        "prompt": "Amount you want to save each month toward {{7}}"
+        "prompt": "Monthly savings"
       },
       {
         "id": 9,
-        "prompt": "A typical temptation to spend on (e.g., online clothes, food delivery)"
+        "prompt": "Impulse purchase"
       },
       {
         "id": 10,
-        "prompt": "A trusted adult you could talk to about money (e.g., mom, big brother, counsellor)"
+        "prompt": "A respected figure"
       }
     ],
     "storySentences": [
@@ -372,50 +372,50 @@
     "blanks": [
       {
         "id": 1,
-        "prompt": "Your first name"
+        "prompt": "A name"
       },
       {
         "id": 2,
-        "prompt": "Name of your bank"
+        "prompt": "A company name"
       },
       {
         "id": 3,
-        "prompt": "Amount of money you think you have in your account"
+        "prompt": "Amount in savings"
       },
       {
         "id": 4,
-        "prompt": "Suspicious link text or address from the message"
+        "prompt": "A silly word"
       },
       {
         "id": 5,
-        "prompt": "Name of a friend you might ask for advice"
+        "prompt": "A friend's name"
       },
       {
         "id": 6,
-        "prompt": "The device you are using when you get the message (e.g., phone, laptop)"
+        "prompt": "A Device"
       },
       {
         "id": 7,
-        "prompt": "A word the message uses to scare you (e.g., urgent, warning)"
+        "prompt": "A scary word"
       },
       {
         "id": 8,
-        "prompt": "What the sender claims to be (e.g., bank security, police)"
+        "prompt": "A trusted job"
       },
       {
         "id": 9,
-        "prompt": "A safe official contact channel of your bank (e.g., in-app chat, phone number on website)"
+        "prompt": "A contact method"
       },
       {
         "id": 10,
-        "prompt": "Something only the real bank should know (e.g., last 4 digits of your card)"
+        "prompt": "A tiny secret only the real company would know"
       }
     ],
     "storySentences": [
       "While scrolling on {{6}}, {{1}} gets an {{7}} message that looks like it is from {{2}}, saying the account with about {{3}} euros is blocked and must be fixed immediately.",
-      "The message tells {{1}} to click {{4}} and log in with online banking codes so that {{8}} can \"secure\" the account, but something about the spelling and tone feels off.",
+      "The message tells {{1}} to click www.bank.fi/{{4}} and log in with online banking codes so that {{8}} can \"secure\" the account, but something about the spelling and tone feels off.",
       "{{1}} shows the message to {{5}}, and together they notice that it does not include personal details like {{10}} and that the sender address is different from earlier real messages from {{2}}.",
-      "Instead of clicking {{4}}, {{1}} closes the message and contacts {{2}} using the official channel {{9}}, where they confirm that the message is a scam and that the bank would never ask for codes like that.",
+      "Instead of clicking www.bank.fi/{{4}}, {{1}} closes the message and contacts {{2}} using the official channel {{9}}, where they confirm that the message is a scam and that the bank would never ask for codes like that.",
       "Relieved, {{1}} deletes the message, warns {{5}} and other friends, and decides to always double-check strange {{7}} messages about money before doing anything with links or login codes."
     ],
     "quiz": [
