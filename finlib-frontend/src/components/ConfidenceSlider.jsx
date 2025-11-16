@@ -9,28 +9,28 @@ const ConfidenceSlider = ({ value, onChange }) => {
     5: 'Very confident'
   };
 
-  return (
-    <div style={{ width: '100%' }}>
-      <div className="section-label">Confidence in digital payments</div>
-      <div className="slider-container">
-        <div className="slider-labels">
-          <span>Not confident</span>
-          <span>Very confident</span>
+    return (
+        <div style={{ width: '100%' }}>
+            <div className="section-label">How confident are you with digital payments? 💳</div>
+            <div className="slider-container">
+                <div className="slider-labels">
+                    <span>Not confident 😕</span>
+                    <span>Very confident 😎</span>
+                </div>
+                <input
+                    type="range"
+                    min="1"
+                    max="5"
+                    value={value}
+                    onChange={(e) => onChange(e.target.value)}
+                    className="slider"
+                />
+                <div className="slider-value">
+                    {confidenceLabels[value]}
+                </div>
+            </div>
         </div>
-        <input
-          type="range"
-          min="1"
-          max="5"
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          className="slider"
-        />
-        <div className="slider-value">
-          {confidenceLabels[value]}
-        </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default ConfidenceSlider;

@@ -61,34 +61,35 @@ const Onboarding = () => {
   };
 
   const genderOptions = [
-    { value: 'male', label: 'Male' },
-    { value: 'female', label: 'Female' },
-    { value: 'other', label: 'Other' },
-    { value: 'prefer-not-to-say', label: 'Prefer not to say' }
+    { value: 'male', label: 'Male ♂️' },
+    { value: 'female', label: 'Female ♀️' },
+    { value: 'other', label: 'Other 🌈' },
+    { value: 'prefer-not-to-say', label: 'Prefer not to say 🤷' }
   ];
 
   const familyTalkOptions = [
-    { value: 'never', label: 'Never' },
-    { value: 'rarely', label: 'Rarely' },
-    { value: 'sometimes', label: 'Sometimes' },
-    { value: 'often', label: 'Often' }
+    { value: 'never', label: 'Never 🚫' },
+    { value: 'rarely', label: 'Rarely 🤏' },
+    { value: 'sometimes', label: 'Sometimes 🤔' },
+    { value: 'often', label: 'Often 💬' }
   ];
 
   return (
     <div className="onboarding">
       <div className="background"></div>
-      <h1>Welcome to MadLib Financial Literacy!</h1>
-      <p>Let's get to know you to personalize your experience.</p>
+      <h1>Welcome to MadLib</h1>
+      <h2>Money Made Fun! 💸</h2>
+      <p>Tell us about yourself to make this experience just for you 🎉</p>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          placeholder="Enter your name"
+          placeholder="What's your name? 😊"
           value={profile.name}
           onChange={(e) => handleChange('name', e.target.value)}
           required
         />
         <SelectionCards
-          label="Gender"
+          label="How do you identify? ✨"
           options={genderOptions}
           selected={profile.gender}
           onSelect={(value) => handleChange('gender', value)}
@@ -98,7 +99,7 @@ const Onboarding = () => {
           onChange={(value) => handleChange('confidence', value)}
         />
         <SelectionCards
-          label="How often does your family talk about money?"
+          label="How often do people at home talk about money? 💬"
           options={familyTalkOptions}
           selected={profile.familyTalk}
           onSelect={(value) => handleChange('familyTalk', value)}
