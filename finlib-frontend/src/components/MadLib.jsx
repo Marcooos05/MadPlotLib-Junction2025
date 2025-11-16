@@ -19,6 +19,7 @@ const MadLib = () => {
   const navigate = useNavigate();
   const [story, setStory] = useState(null);
   const [answers, setAnswers] = useState({});
+  const [error, setError] = useState('');
   const inputRefs = useRef([]);
 
   useEffect(() => {
@@ -42,6 +43,12 @@ const MadLib = () => {
   };
 
   const handleSubmit = () => {
+    const allFilled = story.blanks.every((_, index) => answers[index] && answers[index].trim() !== '');
+    if (!allFilled) {
+      setError('Please fill in all blanks before generating the comic.');
+      return;
+    }
+    setError('');
     // Save answers
     const sessionId = Date.now().toString();
     const sessionData = {
@@ -81,6 +88,8 @@ const MadLib = () => {
             />
           </div>
         ))}
+
+        {error && <div className="error">{error}</div>}
 
         <div className="madlib-actions">
           <button className="cta" onClick={handleSubmit}>
