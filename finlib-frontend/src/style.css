@@ -798,6 +798,138 @@ button:focus-visible {
   font-size: 0.95rem;
   text-align: center;
   padding: 0 8px 6px;
+
+/* WhatIf page styles */
+.whatif {
+  padding: 28px 12px 80px;
+  display: flex;
+  justify-content: center;
+  background: linear-gradient(180deg, rgba(163,228,215,0.03) 0%, transparent 100%);
+}
+.whatif-container {
+  width: 75%;
+  max-width: 980px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  background: transparent;
+}
+.whatif h2 {
+  font-size: 1.9rem;
+  text-align: center;
+  margin-bottom: 4px;
+  font-weight: 800;
+}
+.whatif p {
+  text-align: center;
+  color: #556b73;
+  margin-bottom: 6px;
+}
+.whatif-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 8px;
+}
+.whatif-card {
+  background: white;
+  border-radius: 16px;
+  padding: 18px 20px;
+  box-shadow: 0 8px 24px rgba(15,23,42,0.06);
+  border: 1px solid rgba(45,52,54,0.04);
+  cursor: pointer;
+  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.whatif-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 40px rgba(15,23,42,0.08);
+}
+.whatif-card .whatif-meta {
+  width: 100%;
+  text-align: center;
+}
+.whatif-card h3 {
+  font-size: 1.05rem;
+  font-weight: 800;
+  margin: 0 0 8px;
+  color: var(--text);
+}
+.whatif-card p.short,
+.whatif-card .explanation {
+  color: #51666d;
+  font-weight: 500;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Modal styling */
+.whatif-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1200;
+}
+.whatif-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(8,12,14,0.45);
+  backdrop-filter: blur(3px);
+}
+.whatif-modal-content {
+  position: relative;
+  background: #fff;
+  border-radius: 14px;
+  padding: 18px;
+  width: min(920px, 94%);
+  max-height: 86vh;
+  overflow: auto;
+  box-shadow: 0 20px 50px rgba(2,6,23,0.4);
+  z-index: 1300;
+}
+.whatif-modal .modal-close {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+.whatif-modal .modal-image {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin: 8px 0 12px;
+  display: block;
+}
+.whatif-modal-text { padding: 6px 4px 10px; color: #425a60; }
+.whatif-modal-text .alternate-ending { font-weight: 700; color: var(--text); margin-bottom: 8px; }
+
+/* CTA: right aligned, green (success) */
+.whatif .cta {
+  align-self: flex-end;
+  background: linear-gradient(135deg, var(--success) 0%, var(--mint-700) 100%);
+  color: white;
+  padding: 10px 16px;
+  border-radius: 12px;
+  border: none;
+  font-weight: 800;
+  box-shadow: 0 8px 26px rgba(39,174,96,0.18);
+  cursor: pointer;
+}
+.whatif .cta:hover { transform: translateY(-3px); }
+
+@media (max-width: 720px) {
+  .whatif-container { width: 94%; }
+  .whatif h2 { font-size: 1.5rem; }
+  .whatif-card { padding: 14px; }
+  .whatif .cta { align-self: stretch; text-align:center; }
+}
 }
 
 .card-controls {
@@ -928,9 +1060,13 @@ button:focus-visible {
 .whatif-cards { display: grid; grid-template-columns: 1fr; gap: 18px; }
 .whatif-card { background: white; border-radius: 16px; padding: 14px; box-shadow: 0 6px 20px rgba(0,0,0,0.05); border: 1px solid rgba(45,52,54,0.04); cursor: pointer; transition: transform 140ms ease, box-shadow 140ms ease; display: block; min-height: 84px; }
 .whatif-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.06); }
-.whatif-card h3 { margin: 0 0 6px 0; font-size: 1.05rem; }
+.whatif-card h3 { margin: 0 0 6px 0; font-size: 1.05rem; text-align: center; font-weight: 800; }
 .whatif-card .short { color: #5a6c7d; margin-top: 6px; font-size: 0.95rem; }
-.whatif-meta.full { width: 100%; }
+.whatif-meta.full { width: 100%; text-align: center; }
+
+/* Actions wrapper for CTA alignment */
+.whatif-actions { display: flex; justify-content: flex-end; margin-top: 10px; }
+.whatif .cta { align-self: auto; }
 
 /* Modal styles */
 .whatif-modal { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center; }
@@ -965,20 +1101,92 @@ button:focus-visible {
 .explanation { color: #5a6c7d; font-size: 0.95rem; }
 
 /* Victory styles */
-.victory { min-height: 100vh; background: var(--bg); display: flex; align-items: center; justify-content: center; padding: 20px; }
-.victory-container { max-width: 400px; width: 100%; text-align: center; }
-.badge-hero { margin-bottom: 24px; }
-.badge-hero h2 { color: var(--text); margin-bottom: 16px; }
-.badge { background: var(--mint); border-radius: 24px; padding: 24px; box-shadow: 0 8px 30px rgba(163,228,215,0.3); }
+
+/* WhatIf color tweaks: make cards mint and CTA match active green */
+.whatif-card {
+  background: linear-gradient(180deg, var(--mint-100) 0%, #ffffff 40%);
+  border: 1px solid rgba(63, 191, 157, 0.14); /* subtle mint border */
+  color: var(--text);
+}
+.whatif-card h3 { color: #08302a; }
+.whatif-card:hover {
+  background: linear-gradient(180deg, var(--mint-200) 0%, #ffffff 40%);
+  box-shadow: 0 16px 44px rgba(63, 191, 157, 0.12);
+}
+
+/* Align CTA and make it use active green used elsewhere */
+.whatif-actions { display:flex; justify-content:flex-end; }
+.whatif .cta {
+  background: var(--accent);
+  box-shadow: 0 8px 26px rgba(22,163,74,0.14);
+  border: none;
+}
+.whatif .cta:hover { opacity: 0.96; transform: translateY(-2px); }
+
+.victory { min-height: 100vh; background: linear-gradient(180deg, var(--mint-100) 0%, var(--bg) 40%); display: flex; align-items: center; justify-content: center; padding: 28px 16px; }
+.victory-container { max-width: 980px; width: 100%; text-align: center; padding: 12px; }
+.badge-hero { margin-bottom: 28px; }
+.badge-hero h2 { color: var(--text); margin-bottom: 12px; font-size: 1.9rem; font-weight: 800; }
+.badge { background: linear-gradient(135deg, var(--mint-200), var(--mint-100)); border-radius: 24px; padding: 36px; box-shadow: 0 12px 40px rgba(63,191,157,0.12); display:flex; align-items:center; justify-content:center; }
 .badge-emoji { font-size: 2rem; display: block; margin-bottom: 8px; }
-.badge h3 { margin: 0; color: #08201a; font-size: 1.4rem; }
+.badge h3 { margin: 0; color: #08201a; font-size: 1.6rem; font-weight:800; }
+.badge-image { max-width: 420px; width: 100%; height: auto; display: block; margin: 0 auto; border-radius: 18px; box-shadow: 0 12px 30px rgba(2,6,23,0.06); }
+.badge-image { max-width: 360px; width: 100%; height: auto; display: block; margin: 0 auto; border-radius: 16px; }
 .lessons { background: white; border-radius: 14px; padding: 20px; margin-bottom: 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
 .lessons h4 { margin: 0 0 12px; font-size: 1.1rem; }
 .lessons ul { list-style: none; padding: 0; }
 .lessons li { padding: 8px 0; border-bottom: 1px solid rgba(0,0,0,0.05); }
 .lessons li:last-child { border-bottom: none; }
-.stitched-comic { background: white; border-radius: 14px; padding: 20px; margin-bottom: 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+.stitched-comic { background: white; border-radius: 18px; padding: 22px; margin-bottom: 28px; box-shadow: 0 8px 28px rgba(2,6,23,0.06); }
 .stitched-comic h4 { margin: 0 0 12px; font-size: 1.1rem; }
 .comic-frame { width: 100%; height: auto; margin-bottom: 8px; border-radius: 8px; }
+.comic-player-mini { display:flex; flex-direction: column; align-items: center; gap: 10px; }
+.comic-frame.mini { max-width: 840px; width: 100%; box-shadow: 0 12px 40px rgba(2,6,23,0.08); border-radius: 16px; overflow: hidden; }
+.comic-frame.mini img { display:block; width:100%; height:auto; }
+.comic-caption { color: #2d3b37; font-weight: 700; margin-top: 8px; text-align:center; max-width:880px; }
+
+/* Progress bar for mini comic */
+.progress-mini { width: 100%; max-width: 840px; height: 8px; background: rgba(0,0,0,0.06); border-radius: 8px; overflow: hidden; }
+.progress-mini .progress-bar { height: 100%; background: linear-gradient(90deg, var(--mint-700), var(--success)); width: 0%; transition: width 260ms linear; }
+
+/* Make share button stand out with accent green */
+.share-btn { background: linear-gradient(135deg, var(--accent), var(--success)); color: white; border: none; padding: 14px 36px; border-radius: 28px; font-size: 1.05rem; font-weight: 800; cursor: pointer; box-shadow: 0 10px 30px rgba(39,174,96,0.18); }
+.share-btn:hover { transform: translateY(-3px); }
 .share-btn { background: var(--accent); color: white; border: none; padding: 16px 32px; border-radius: 24px; font-size: 1.1rem; font-weight: 700; cursor: pointer; box-shadow: 0 6px 18px rgba(16, 185, 129, 0.3); transition: transform 150ms ease; }
 .share-btn:hover { transform: translateY(-2px); }
+
+@media (max-width: 820px) {
+  .badge { padding: 20px; }
+  .badge-image { max-width: 280px; }
+  .victory-container { padding: 8px; }
+  .comic-frame.mini { border-radius: 12px; }
+  .progress-mini { max-width: 100%; }
+}
+
+@media (max-width: 480px) {
+  .badge { padding: 14px; border-radius: 12px; }
+  .badge h3 { font-size: 1.2rem; }
+  .badge-image { max-width: 220px; }
+  .comic-caption { font-size: 0.95rem; }
+  .share-btn { padding: 12px 20px; font-size: 0.98rem; }
+}
+
+/* Victory grid: main content left, badge right */
+.victory-grid { display: grid; grid-template-columns: 1fr 360px; gap: 28px; align-items: start; }
+.victory-main { text-align: left; }
+.victory-title { font-size: 2rem; margin: 0 0 12px; font-weight: 900; color: var(--text); }
+.lessons { margin-bottom: 18px; }
+.lessons h4 { font-size: 1.15rem; margin-bottom: 10px; }
+.lessons ul { list-style: none; padding: 0; }
+.lessons li { padding: 10px 0; font-size: 1.05rem; color: #314548; border-bottom: 1px solid rgba(0,0,0,0.04); }
+.share-wrap { display: flex; justify-content: center; margin: 12px auto 0; width: 100%; max-width: 840px; }
+
+.victory-side { display:flex; align-items:center; justify-content:center; }
+.badge-hero { width: 100%; }
+
+@media (max-width: 920px) {
+  .victory-grid { grid-template-columns: 1fr; }
+  .victory-main { order: 1; }
+  .victory-side { order: 2; margin-top: 12px; }
+  .comic-frame.mini { max-width: 100%; }
+}

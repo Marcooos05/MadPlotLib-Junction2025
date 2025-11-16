@@ -59,6 +59,8 @@ const WhatIf = () => {
   };
 
   if (!story) return <div>Loading...</div>;
+  const activeWhatIf = (activeIndex != null && story) ? story.whatIfs[activeIndex] : null;
+  const modalImg = activeWhatIf ? (activeWhatIf.image || (story?.comic?.images || [])[Math.min(activeIndex + 1, Math.max(0, (story?.comic?.images||[]).length - 1))] || (story?.comic?.images || [])[0]) : null;
 
   return (
     <div className="whatif">
@@ -81,34 +83,32 @@ const WhatIf = () => {
                   <div className="whatif-card-row">
                     <div className="whatif-meta full">
                       <h3>{whatIf.title}</h3>
-                      <p className="short">{whatIf.explanation}</p>
                     </div>
                   </div>
               </div>
             );
           })}
 
+        </div>
+
         {/* Modal for large preview */}
-        {activeIndex != null && (() => {
-          const whatIf = story.whatIfs[activeIndex];
-          const frames = story?.comic?.images || [];
-          const img = whatIf.image || frames[Math.min(activeIndex + 1, Math.max(0, frames.length - 1))] || frames[0] || `https://via.placeholder.com/900x540?text=${encodeURIComponent(whatIf.title)}`;
-          return (
-            <div className="whatif-modal" role="dialog" aria-modal="true">
-              <div className="whatif-modal-backdrop" onClick={closeModal} />
-              <div className="whatif-modal-content" aria-labelledby={`whatif-title-${activeIndex}`}>
-                <button className="modal-close" onClick={closeModal} aria-label="Close">✕</button>
-                <h3 id={`whatif-title-${activeIndex}`}>{whatIf.title}</h3>
-                <img src={img} alt={whatIf.title} className="modal-image" />
-                <div className="whatif-modal-text">
-                  <p className="alternate-ending">{fillSentence(whatIf.modifiedSentence5)}</p>
-                  <p className="explanation">{whatIf.explanation}</p>
-                </div>
+        {activeWhatIf && (
+          <div className="whatif-modal" role="dialog" aria-modal="true">
+            <div className="whatif-modal-backdrop" onClick={closeModal} />
+            <div className="whatif-modal-content" aria-labelledby={`whatif-title-${activeIndex}`}>
+              <button className="modal-close" onClick={closeModal} aria-label="Close">✕</button>
+              <h3 id={`whatif-title-${activeIndex}`}>{activeWhatIf.title}</h3>
+              <img src={modalImg || ('https://via.placeholder.com/900x540?text=' + encodeURIComponent(activeWhatIf.title))} alt={activeWhatIf.title} className="modal-image" />
+              <div className="whatif-modal-text">
+                <p className="alternate-ending">{fillSentence(activeWhatIf.modifiedSentence5)}</p>
+                <p className="explanation">{activeWhatIf.explanation}</p>
               </div>
             </div>
-          );
-        })()}
-        <button className="cta" onClick={handleExplore}>See My Victory! 🏆</button>
+          </div>
+        )}
+        <div className="whatif-actions">
+          <button className="cta" onClick={handleExplore}>See My Victory! 🏆</button>
+        </div>
       </div>
     </div>
   );
