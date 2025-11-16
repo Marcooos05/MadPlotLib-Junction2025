@@ -10,7 +10,7 @@ const WhatIf = () => {
   const [session, setSession] = useState(null);
   const [story, setStory] = useState(null);
   const [answersMap, setAnswersMap] = useState({});
-  const [revealed, setRevealed] = useState([false, false, false]);
+  const [activeIndex, setActiveIndex] = useState(null);
 
   useEffect(() => {
     const loadData = async () => {
@@ -49,10 +49,10 @@ const WhatIf = () => {
   };
 
   const handleReveal = (index) => {
-    const newRevealed = [...revealed];
-    newRevealed[index] = !newRevealed[index];
-    setRevealed(newRevealed);
+    setActiveIndex(index);
   };
+
+  const closeModal = () => setActiveIndex(null);
 
   const handleExplore = () => {
     navigate(`/victory/${sessionId}`);
@@ -66,18 +66,56 @@ const WhatIf = () => {
         <h2>What If? 🤔</h2>
         <p>Explore alternate endings to see how small changes could make a big difference!</p>
         <div className="whatif-cards">
-          {story.whatIfs.map((whatIf, index) => (
-            <div key={index} className="whatif-card" onClick={() => handleReveal(index)}>
-              <h3>{whatIf.title}</h3>
-              {revealed[index] && (
-                <div className="whatif-reveal">
+          {story.whatIfs.map((whatIf, index) => {
+            const frames = story?.comic?.images || [];
+            const thumb = whatIf.thumbImage || frames[index] || frames[0] || `https://via.placeholder.com/600x360?text=${encodeURIComponent(whatIf.title)}`;
+            return (
+              <div
+                key={index}
+                className="whatif-card simple"
+                onClick={() => handleReveal(index)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') handleReveal(index); }}
+              >
+                <div className="whatif-card-row">
+                  <div className="whatif-thumb">
+                    <img src={thumb} alt={whatIf.title} />
+                  </div>
+                  <div className="whatif-meta">
+                    <h3>{whatIf.title}</h3>
+                    <p className="short">{whatIf.explanation}</p>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Modal for large preview */}
+        {activeIndex != null && (() => {
+          const whatIf = story.whatIfs[activeIndex];
+          const frames = story?.comic?.images || [];
+          const img = whatIf.image || frames[Math.min(activeIndex + 1, Math.max(0, frames.length - 1))] || frames[0] || `https://via.placeholder.com/900x540?text=${encodeURIComponent(whatIf.title)}`;
+          return (
+            <div className="whatif-modal" role="dialog" aria-modal="true">
+              <div className="whatif-modal-backdrop" onClick={closeModal} />
+              <div className="whatif-modal-content" aria-labelledby={`whatif-title-${activeIndex}`}>
+                <button className="modal-close" onClick={closeModal} aria-label="Close">✕</button>
+                <h3 id={`whatif-title-${activeIndex}`}>{whatIf.title}</h3>
+                <img src={img} alt={whatIf.title} className="modal-image" />
+                <div className="whatif-modal-text">
                   <p className="alternate-ending">{fillSentence(whatIf.modifiedSentence5)}</p>
                   <p className="explanation">{whatIf.explanation}</p>
                 </div>
-              )}
+                <div className="modal-actions">
+                  <button className="nav-btn" onClick={closeModal}>Close</button>
+                  <button className="nav-btn next" onClick={() => { closeModal(); handleExplore(); }}>See My Victory! 🏆</button>
+                </div>
+              </div>
             </div>
-          ))}
-        </div>
+          );
+        })()}
         <button className="cta" onClick={handleExplore}>See My Victory! 🏆</button>
       </div>
     </div>
