@@ -108,10 +108,6 @@ const WhatIf = () => {
                   <p className="alternate-ending">{fillSentence(whatIf.modifiedSentence5)}</p>
                   <p className="explanation">{whatIf.explanation}</p>
                 </div>
-                <div className="modal-actions">
-                  <button className="nav-btn" onClick={closeModal}>Close</button>
-                  <button className="nav-btn next" onClick={() => { closeModal(); handleExplore(); }}>See My Victory! 🏆</button>
-                </div>
               </div>
             </div>
           );
