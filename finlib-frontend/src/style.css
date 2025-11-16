@@ -146,6 +146,194 @@ body {
   transform: scale(1.05);
 }
 
+/* Stories / StoryPicker styles */
+.stories-page {
+  width: 100%;
+  padding: 24px 12px 48px;
+}
+
+.story-picker {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 12px 8px;
+  text-align: center;
+}
+
+.story-picker h1 {
+  font-size: 2rem;
+  margin-bottom: 6px;
+}
+
+.story-picker .recommended h2 {
+  margin: 8px 0 12px;
+  font-size: 1.25rem;
+}
+
+.story-picker .recommended .horizontal-scroll {
+  display: flex;
+  gap: 16px;
+  padding: 12px 8px;
+}
+
+.story-card {
+  background: white;
+  border: 1px solid rgba(45,52,54,0.06);
+  border-radius: 12px;
+  padding: 18px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+  min-width: 240px;
+  flex: 0 0 240px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.story-card h3 {
+  margin: 0 0 10px;
+  font-size: 1.05rem;
+}
+
+.story-card p {
+  margin: 0;
+  color: #42515a;
+  line-height: 1.4;
+}
+
+.story-card.recommended {
+  border: 3px solid var(--mint);
+  box-shadow: 0 10px 30px rgba(163,228,215,0.18);
+  padding: 22px;
+  flex: 1 1 auto;
+  min-width: unset;
+}
+
+.card-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.thumb {
+  font-size: 1.8rem;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: rgba(163,228,215,0.12);
+}
+
+.badge {
+  font-size: 0.85rem;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.badge.debt { background: #FF8A65; }
+.badge.budgeting { background: #6FCF97; }
+.badge.scams { background: #F2994A; }
+
+.card-footer { margin-top: 12px; display:flex; justify-content:flex-end; }
+.card-footer .select {
+  background: transparent;
+  border: 1px solid rgba(45,52,54,0.08);
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.card-footer .cta {
+  background: var(--mint);
+  border: none;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.story-card.active { transform: translateY(-6px); box-shadow: 0 12px 30px rgba(0,0,0,0.08); }
+
+/* Slightly narrower overall content width for a tighter layout */
+.story-picker { max-width: 980px; width: 75%; margin: 0 auto; }
+
+.carousel-container { position: relative; display: flex; align-items: center; }
+.carousel-container .arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.9);
+  border: 1px solid rgba(0,0,0,0.06);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  z-index: 10;
+}
+.carousel-container .arrow.left { left: -14px; }
+.carousel-container .arrow.right { right: -14px; }
+
+/* Ensure arrows are not shown on very small screens (use vertical stacking) */
+@media (max-width: 520px) {
+  .carousel-container .arrow { display: none; }
+  .story-picker { width: 94%; }
+}
+
+.tabs {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin: 18px 0;
+  flex-wrap: wrap;
+}
+
+.tabs button {
+  background: #f3f6f6;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.tabs button.active {
+  background: var(--mint);
+  color: #fff;
+}
+
+.horizontal-scroll {
+  display: flex;
+  gap: 18px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+
+/* Small screens: stack cards and make recommended full width */
+@media (max-width: 700px) {
+  .story-picker {
+    padding: 8px 6px;
+  }
+  .horizontal-scroll {
+    flex-direction: column;
+    gap: 12px;
+    overflow: visible;
+  }
+  .story-card {
+    min-width: auto;
+    flex: 1 1 auto;
+    width: 100%;
+  }
+  .story-card.recommended {
+    padding: 16px;
+  }
+}
+
 .slider-container {
   width: 100%;
   padding: 24px;

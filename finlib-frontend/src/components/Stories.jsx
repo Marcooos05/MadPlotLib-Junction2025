@@ -1,9 +1,10 @@
 import React from 'react';
+import StoryPicker from './StoryPicker';
 
 const Stories = () => {
   return (
-    <div>
-      <h1>Stories View - Coming Soon</h1>
+    <div className="stories-page">
+      <StoryPicker />
     </div>
   );
 };

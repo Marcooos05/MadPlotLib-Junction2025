@@ -1,9 +1,10 @@
 [
   {
     "id": "debt-phone-1",
-    "title": "The New Phone on Installments",
+    "title": "Phone Dilemma 📱",
     "category": "Debt",
-    "shortDescription": "You spot a dream phone and must choose between buying it on installments or waiting and saving. Learn how interest and monthly payments really work.",
+    "thumb": "📱",
+    "shortDescription": "Dream phone now or save up? Compare total cost vs monthly payments.",
     "recommendedIf": "confidence <= 3 && familyTalk == 'sometimes'",
     "comic": {
       "images": [
@@ -118,8 +119,9 @@
   },
   {
     "id": "debt-festival-1",
-    "title": "Festival Ticket and a Friend's Loan",
-    "shortDescription": "You really want to go to a summer festival and must decide whether to borrow from a friend or use a quick loan. Think about what it means to owe money.",
+    "title": "Festival FOMO 🎟️",
+    "thumb": "🎟️",
+    "shortDescription": "Go now with a loan, or borrow from a friend? See the cost of borrowing.",
     "recommendedIf": "(gender == 'female' || gender == 'other') && confidence >= 3 && familyTalk != 'often'",
     "category": "Debt",
     "comic": {
@@ -235,8 +237,9 @@
   },
   {
     "id": "budget-summerjob-1",
-    "title": "First Summer Job Budget",
-    "shortDescription": "Your first proper paycheck arrives, and you decide how to split it between bills, fun, and savings. Learn how a simple budget gives you control.",
+    "title": "Payday Plan 💼",
+    "thumb": "💼",
+    "shortDescription": "First paycheck: split money between bills, savings and fun with a simple plan.",
     "recommendedIf": "confidence >= 2 && confidence <= 5 && familyTalk == 'often'",
     "category": "Budgeting",
     "comic": {
@@ -352,8 +355,9 @@
   },
   {
     "id": "scam-message-1",
-    "title": "The Suspicious Bank Message",
-    "shortDescription": "You receive a scary message about your bank account and must decide whether it is real or a scam. Learn how to protect your money and identity.",
+    "title": "Scam Alert ⚠️",
+    "thumb": "⚠️",
+    "shortDescription": "Got a scary message? Spot the red flags and use safe contact channels.",
     "recommendedIf": "familyTalk == 'never' || familyTalk == 'rarely'",
     "category": "Scams",
     "comic": {
