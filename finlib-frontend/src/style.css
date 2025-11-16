@@ -926,12 +926,11 @@ button:focus-visible {
 .whatif-container p { text-align: center; margin-bottom: 24px; color: #5a6c7d; }
 .whatif-cards { display: flex; flex-direction: column; gap: 16px; }
 .whatif-cards { display: grid; grid-template-columns: 1fr; gap: 18px; }
-.whatif-card { background: white; border-radius: 16px; padding: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.05); border: 1px solid rgba(45,52,54,0.04); cursor: pointer; transition: transform 140ms ease, box-shadow 140ms ease; display: flex; align-items: center; gap: 12px; min-height: 84px; }
+.whatif-card { background: white; border-radius: 16px; padding: 14px; box-shadow: 0 6px 20px rgba(0,0,0,0.05); border: 1px solid rgba(45,52,54,0.04); cursor: pointer; transition: transform 140ms ease, box-shadow 140ms ease; display: block; min-height: 84px; }
 .whatif-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.06); }
-.whatif-card h3 { margin: 0; font-size: 1.05rem; }
+.whatif-card h3 { margin: 0 0 6px 0; font-size: 1.05rem; }
 .whatif-card .short { color: #5a6c7d; margin-top: 6px; font-size: 0.95rem; }
-.whatif-thumb { width: 120px; height: 76px; flex: 0 0 120px; border-radius: 10px; overflow: hidden; box-shadow: 0 6px 18px rgba(0,0,0,0.06); }
-.whatif-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.whatif-meta.full { width: 100%; }
 
 /* Modal styles */
 .whatif-modal { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center; }
@@ -940,7 +939,7 @@ button:focus-visible {
 .whatif-modal-content h3 { margin: 0 0 12px; font-size: 1.25rem; color: var(--text); }
 .modal-image { width: 100%; height: auto; border-radius: 10px; object-fit: cover; box-shadow: 0 8px 26px rgba(0,0,0,0.06); margin-bottom: 12px; }
 .whatif-modal-text { padding: 8px 0 12px; }
-.modal-close { position: absolute; right: 12px; top: 12px; background: rgba(0,0,0,0.06); border: none; width: 40px; height: 40px; border-radius: 10px; cursor: pointer; font-size: 1.1rem; }
+.modal-close { position: absolute; right: 12px; top: 12px; background: rgba(0,0,0,0.06); border: none; width: 40px; height: 40px; border-radius: 10px; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; padding: 0; line-height: 1; }
 .modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 8px; }
 .modal-actions .nav-btn { padding: 10px 14px; border-radius: 10px; font-weight: 700; }
 .modal-actions .nav-btn.next { background: var(--accent); color: white; border: none; }
@@ -959,8 +958,7 @@ button:focus-visible {
 
 @media (max-width: 520px) {
   .whatif-cards { grid-template-columns: 1fr; }
-  .whatif-thumb { width: 96px; height: 66px; }
-  .whatif-card { padding: 10px; }
+  .whatif-card { padding: 12px; }
   .whatif-modal-content { padding: 14px; }
 }
 .alternate-ending { font-weight: 600; color: var(--text); margin-bottom: 8px; }

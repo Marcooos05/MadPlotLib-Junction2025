@@ -78,19 +78,12 @@ const WhatIf = () => {
                 tabIndex={0}
                 onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') handleReveal(index); }}
               >
-                <div className="whatif-card-row">
-                  <div className="whatif-thumb">
-                    <img src={thumb} alt={"DEMO"} />
+                  <div className="whatif-card-row">
+                    <div className="whatif-meta full">
+                      <h3>{whatIf.title}</h3>
+                      <p className="short">{whatIf.explanation}</p>
+                    </div>
                   </div>
-                  <div className="whatif-meta">
-                    <h3>{whatIf.title}</h3>
-                    <p className="short">{whatIf.explanation}</p>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
 
         {/* Modal for large preview */}
         {activeIndex != null && (() => {
