@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { doc, setDoc } from 'firebase/firestore';
 import { db } from '../firebase.js';
@@ -19,7 +19,7 @@ const MadLib = () => {
   const navigate = useNavigate();
   const [story, setStory] = useState(null);
   const [answers, setAnswers] = useState({});
-  const [currentBlank, setCurrentBlank] = useState(0);
+  const inputRefs = useRef([]);
 
   useEffect(() => {
     const selectedStory = storiesData.find(s => s.id === storyId);
@@ -28,57 +28,63 @@ const MadLib = () => {
 
   if (!story) return <div>Loading...</div>;
 
-  const handleChange = (e) => {
-    setAnswers({ ...answers, [currentBlank]: e.target.value });
+  const handleChange = (index) => (e) => {
+    setAnswers({ ...answers, [index]: e.target.value });
   };
 
-  const handleNext = () => {
-    if (currentBlank < story.blanks.length - 1) {
-      setCurrentBlank(currentBlank + 1);
-    } else {
-      // Save answers
-      const sessionId = Date.now().toString();
-      const sessionData = {
-        storyId,
-        answers,
-        createdAt: new Date()
-      };
-      localStorage.setItem('session', JSON.stringify(sessionData));
-      // Save to Firestore (best-effort)
-      try {
-        setDoc(doc(db, 'users', 'anonymous', 'sessions', sessionId), sessionData);
-      } catch (err) {
-        console.warn('Firestore save failed:', err);
+  const handleKeyDown = (index) => (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      if (index < story.blanks.length - 1) {
+        inputRefs.current[index + 1].focus();
       }
-      navigate(`/comic/${sessionId}`);
     }
   };
 
-  const blank = story.blanks[currentBlank];
+  const handleSubmit = () => {
+    // Save answers
+    const sessionId = Date.now().toString();
+    const sessionData = {
+      storyId,
+      answers,
+      createdAt: new Date()
+    };
+    localStorage.setItem('session', JSON.stringify(sessionData));
+    // Save to Firestore (best-effort)
+    try {
+      setDoc(doc(db, 'users', 'anonymous', 'sessions', sessionId), sessionData);
+    } catch (err) {
+      console.warn('Firestore save failed:', err);
+    }
+    navigate(`/comic/${sessionId}`);
+  };
 
   return (
     <div className="madlib">
       <div className="madlib-container">
-        <div className="progress">Blank {currentBlank + 1} of {story.blanks.length}</div>
         <div className="madlib-header">
           <div className="madlib-thumb">{story.thumb ? story.thumb : emojiForCategory(story.category)}</div>
           <h2 className="madlib-title">{story.title}</h2>
         </div>
 
-        <div className="blank-input">
-          <label className="input-label">{blank.prompt}</label>
-          <input
-            className="text-input"
-            type="text"
-            value={answers[currentBlank] || ''}
-            onChange={handleChange}
-            placeholder="Type your answer..."
-          />
-        </div>
+        {story.blanks.map((blank, index) => (
+          <div key={index} className="blank-input">
+            <label className="input-label">{blank.prompt}</label>
+            <input
+              ref={(el) => inputRefs.current[index] = el}
+              className="text-input"
+              type="text"
+              value={answers[index] || ''}
+              onChange={handleChange(index)}
+              onKeyDown={handleKeyDown(index)}
+              placeholder="Type your answer..."
+            />
+          </div>
+        ))}
 
         <div className="madlib-actions">
-          <button className="cta" onClick={handleNext}>
-            {currentBlank < story.blanks.length - 1 ? 'Next' : 'Generate Comic'}
+          <button className="cta" onClick={handleSubmit}>
+            Generate Comic
           </button>
         </div>
       </div>
