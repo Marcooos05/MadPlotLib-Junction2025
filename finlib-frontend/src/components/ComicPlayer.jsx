@@ -61,11 +61,18 @@ const ComicPlayer = () => {
 
   return (
     <div className="comic-player">
-      <div className="comic-frame">
-        <img src={story.comic.images[currentFrame]} alt={`Frame ${currentFrame + 1}`} />
+      <div className="comic-card">
+        <div className="comic-frame">
+          <img src={story.comic.images[currentFrame]} alt={`Frame ${currentFrame + 1}`} />
+        </div>
+
+        <div className="comic-caption">{story.shortDescription || story.title}</div>
+
+        <div className="card-controls">
+          <div className="speaker" aria-hidden="true">🔊</div>
+          <button className="replay-btn" onClick={handleReplay} aria-label="Replay comic">Replay</button>
+        </div>
       </div>
-      <div className="speaker">🔊</div>
-      <button className="replay-btn" onClick={handleReplay}>Replay</button>
     </div>
   );
 };

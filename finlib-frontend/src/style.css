@@ -622,50 +622,84 @@ button:focus-visible {
 
 /* Comic Player */
 .comic-player {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: #000;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: var(--bg);
+  padding: 28px 12px;
 }
+
+.comic-card {
+  width: 100%;
+  max-width: 520px;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(15,23,42,0.12);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .comic-frame {
-  border: 10px solid #000;
-  border-radius: 10px;
+  width: 100%;
+  background: #000;
+  border-radius: 12px;
   overflow: hidden;
+  border: 6px solid #000;
 }
+
 .comic-frame img {
   width: 100%;
-  max-width: 90vw;
   height: auto;
   display: block;
 }
+
+.comic-caption {
+  margin-top: 12px;
+  color: var(--text);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-align: center;
+  padding: 0 8px 6px;
+}
+
+.card-controls {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+  padding: 6px 8px;
+}
+
 .speaker {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  font-size: 2rem;
-  animation: pulse 1s infinite;
+  font-size: 1.6rem;
+  animation: pulse 1200ms infinite;
 }
+
 @keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.08); opacity: 0.9; }
+  100% { transform: scale(1); opacity: 1; }
 }
+
 .replay-btn {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
   background: var(--accent);
   color: white;
   border: none;
-  padding: 10px 15px;
-  border-radius: 24px;
+  padding: 10px 14px;
+  border-radius: 14px;
   font-weight: 700;
   cursor: pointer;
+  box-shadow: 0 6px 18px rgba(16, 185, 129, 0.12);
+}
+
+@media (max-width: 420px) {
+  .comic-card { max-width: 96%; padding: 12px; }
+  .comic-caption { font-size: 0.9rem; }
+  .speaker { font-size: 1.4rem; }
 }
 
 /* Quiz */
