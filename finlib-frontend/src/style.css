@@ -1,5 +1,6 @@
 :root {
   --mint: #A3E4D7;
+  --accent: #16A34A;
   --coral: #FF6B6B;
   --orange: #F39C6B;
   --bg: #F8FAFC;
@@ -245,7 +246,7 @@ body {
   cursor: pointer;
 }
 .card-footer .cta {
-  background: var(--mint);
+  background: var(--accent);
   border: none;
   color: white;
   padding: 8px 14px;
@@ -303,7 +304,7 @@ body {
 }
 
 .tabs button.active {
-  background: var(--mint);
+  background: var(--accent);
   color: #fff;
 }
 
@@ -406,7 +407,7 @@ body {
 
 .onboarding button[type="submit"] {
   padding: 18px 48px;
-  background: linear-gradient(135deg, var(--mint) 0%, var(--success) 100%);
+  background: linear-gradient(135deg, var(--accent) 0%, var(--success) 100%);
   color: white;
   border: none;
   border-radius: 16px;
@@ -469,7 +470,7 @@ body {
 }
 
 .tabs button.active {
-  background: var(--mint);
+  background: var(--accent);
   color: white;
 }
 
