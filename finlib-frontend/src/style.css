@@ -1,5 +1,9 @@
 :root {
   --mint: #A3E4D7;
+  --mint-100: #E9FBF8;
+  --mint-200: #D7F6EE;
+  --mint-400: #8FE0C9;
+  --mint-700: #40BFA0;
   --accent: #16A34A;
   --coral: #FF6B6B;
   --orange: #F39C6B;
@@ -405,6 +409,40 @@ body {
   color: var(--text);
 }
 
+/* Quiz styles */
+.quiz { padding: 28px 12px 80px; display:flex; justify-content:center; }
+.quiz-container { width: 100%; max-width: 760px; }
+.quiz-container h2 { text-align:center; font-size:1.8rem; margin-bottom:18px; color:var(--text); }
+.question-card { background: white; border-radius: 14px; padding: 20px; box-shadow: 0 8px 30px rgba(0,0,0,0.06); border: 1px solid rgba(45,52,54,0.04); }
+.question { font-size: 1.15rem; color: #233042; margin-bottom: 14px; }
+.options { display:flex; flex-direction:column; gap:12px; }
+.option-btn { display:flex; gap:12px; align-items:center; padding:14px 16px; background: var(--mint-100); border:none; border-radius:12px; cursor:pointer; font-weight:700; color:#07403b; box-shadow: 0 6px 18px rgba(163,228,215,0.12); transition: transform 150ms ease, box-shadow 150ms ease, background 160ms ease, border 160ms ease; }
+.option-btn:disabled { opacity: 0.6; cursor: default; }
+.option-btn:hover:not(:disabled) { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(163,228,215,0.22); background: var(--mint-200); }
+.option-emoji { font-size:1.4rem; width:36px; display:inline-flex; align-items:center; justify-content:center; }
+.option-text { flex:1; text-align:left; }
+.feedback { margin-top:14px; padding:12px 16px; border-radius:10px; text-align:center; font-weight:700; }
+.feedback.correct { background: rgba(39,174,96,0.12); color: var(--success); }
+.feedback.incorrect { background: rgba(255,107,107,0.08); color: var(--coral); }
+
+@media (max-width:600px) {
+  .option-btn { padding:12px; font-size:0.98rem; }
+  .question { font-size:1.05rem; }
+}
+
+/* Quiz option states */
+.option-btn.correct { background: var(--mint); color: var(--text); border: none; box-shadow: 0 8px 24px rgba(163,228,215,0.12); }
+.option-btn.incorrect { background: rgba(255,107,107,0.1); color: var(--coral); border: none; box-shadow: 0 8px 24px rgba(255,107,107,0.06); }
+.option-btn.correct .option-emoji, .option-btn.correct .option-text { color: var(--text); }
+.option-btn.incorrect .option-emoji, .option-btn.incorrect .option-text { color: var(--coral); }
+
+.answered .option-btn:not(.correct):not(.incorrect) { background: var(--mint-200); }
+
+.quiz-nav { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-top:14px; }
+.nav-btn { background: white; border: 1px solid rgba(45,52,54,0.08); padding:10px 14px; border-radius:10px; cursor:pointer; font-weight:700; }
+.nav-btn.next { background: var(--accent); color: #fff; border:none; }
+.nav-btn:disabled { opacity:0.6; cursor: default; }
+
 .onboarding button[type="submit"] {
   padding: 18px 48px;
   background: linear-gradient(135deg, var(--accent) 0%, var(--success) 100%);
@@ -679,6 +717,63 @@ button:focus-visible {
 .arrow:focus {
   outline: none;
   box-shadow: 0 0 0 4px rgba(163,228,215,0.35);
+}
+
+/* Bottom overlay */
+.overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: rgba(0,0,0,0.35);
+  backdrop-filter: blur(4px);
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  transform: translateY(8px);
+  transition: opacity 200ms, transform 200ms;
+  opacity: 0;
+  pointer-events: none;
+}
+.overlay.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+.overlay.hidden { opacity: 0; pointer-events: none; }
+.overlay-btn {
+  background: rgba(255,255,255,0.95);
+  border: none;
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  font-size: 1.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.overlay-gap { flex: 1; }
+
+/* Navigation row under caption */
+.nav-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 12px 0;
+  transition: opacity 180ms, transform 180ms;
+  opacity: 0;
+  transform: translateY(6px);
+  pointer-events: none;
+}
+.nav-row.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+
+/* Reuse overlay-btn styles for nav buttons but make them slightly larger in card context */
+.nav-row .overlay-btn {
+  width: 64px;
+  height: 64px;
+  font-size: 1.8rem;
 }
 
 .progress-wrap {
