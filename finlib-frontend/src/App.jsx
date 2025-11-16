@@ -4,6 +4,8 @@ import StoryPicker from './components/StoryPicker';
 import MadLib from './components/MadLib';
 import ComicPlayer from './components/ComicPlayer';
 import Quiz from './components/Quiz';
+import WhatIf from './components/WhatIf';
+import Victory from './components/Victory';
 import Stories from './components/Stories';
 
 function App() {
@@ -15,6 +17,8 @@ function App() {
         <Route path="/madlib/:storyId" element={<MadLib />} />
         <Route path="/comic/:sessionId" element={<ComicPlayer />} />
         <Route path="/quiz/:sessionId" element={<Quiz />} />
+        <Route path="/whatif/:sessionId" element={<WhatIf />} />
+        <Route path="/victory/:sessionId" element={<Victory />} />
       </Routes>
     </Router>
   );
