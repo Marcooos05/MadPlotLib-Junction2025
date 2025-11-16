@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { doc, updateDoc } from 'firebase/firestore';
-import { db } from '../firebase.js';
+import { db } from '../firebase';
 import Confetti from 'react-confetti';
 import storiesData from '../stories/mocks.json';
 
