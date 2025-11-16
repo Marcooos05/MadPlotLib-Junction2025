@@ -80,7 +80,7 @@ const WhatIf = () => {
               >
                 <div className="whatif-card-row">
                   <div className="whatif-thumb">
-                    <img src={thumb} alt={whatIf.title} />
+                    <img src={thumb} alt={"DEMO"} />
                   </div>
                   <div className="whatif-meta">
                     <h3>{whatIf.title}</h3>
