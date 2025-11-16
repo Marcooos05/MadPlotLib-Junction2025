@@ -1,0 +1,442 @@
+{
+  "name": "MadLib Comic Generator",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "/api/generate-comic",
+        "authentication": "headerAuth",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -688,
+        -16
+      ],
+      "id": "d881c03d-1f16-4df8-b6fd-b7e372c20566",
+      "name": "Webhook",
+      "webhookId": "78aacbb4-c47a-4b47-a82b-02b21d3b3fd3",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "oVjUsAs3rSsQHqeA",
+          "name": "Header Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const { storyId, storySentences, profile } = $input.item.json.body;\nconst { name, gender } = profile;\nreturn { storyId, storySentences, name, gender };"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -464,
+        -16
+      ],
+      "id": "aef5c1fb-ef89-42ea-93ca-6444775862ab",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "storySentences",
+        "include": "selectedOtherFields",
+        "fieldsToInclude": "storyId, name, gender",
+        "options": {}
+      },
+      "id": "9629a893-7221-4f52-b783-e9265659ce72",
+      "name": "Split Story Sentences",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        -240,
+        -16
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const allItems = $input.all();\nconst currentIndex = $itemIndex;\nconst name = $json.name;\nconst sentence = $json.storySentences;\n\nlet previousContext = '';\nif (currentIndex > 0) {\n  const previousDescriptions = allItems.slice(0, currentIndex).map((item, idx) => {\n    const desc = item.json.imageDescription || item.json.storySentences;\n    return `Frame ${idx + 1}: ${desc}`;\n  }).join('. ');\n  previousContext = `Maintain visual consistency with previous frames: ${previousDescriptions}. Keep the same character appearance, art style, and color palette. `;\n}\n\nconst prompt = `Cartoon style illustration, Finnish teenager named ${name} in a financial literacy scenario. Frame ${currentIndex + 1}: ${sentence}. ${previousContext}Vibrant colors, educational comic book style, consistent character design.`;\n\nreturn { ...($json), prompt, frameIndex: currentIndex + 1 };"
+      },
+      "id": "81b21bba-250b-4a1a-abde-eb06445935aa",
+      "name": "Build Gemini Prompt",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -16,
+        -16
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash-image",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash-image (Nano Banana)"
+        },
+        "options": {}
+      },
+      "id": "f083cf52-c39f-498c-a835-2ad3e34bb607",
+      "name": "Generate Comic Frame",
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1,
+      "position": [
+        208,
+        -16
+      ],
+      "credentials": {
+        "googlePalmApi": {
+          "id": "mk3X3xWQJs8BqKxr",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const imageData = $binary.data; const imageDescription = `${$json.storySentences} - cartoon illustration of Finnish teen ${$json.name}`; return { frameIndex: $json.frameIndex, sentence: $json.storySentences, imageDescription: imageDescription, storyId: $json.storyId, name: $json.name, gender: $json.gender, imageBinary: $binary };"
+      },
+      "id": "216c7fdf-6f6c-4f40-9115-fe23c4339071",
+      "name": "Extract Image Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        432,
+        -16
+      ]
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "imageBinary"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "592fa033-7614-46ae-bf85-96ec847cdadd",
+      "name": "Collect All Images",
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        656,
+        -16
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const allItems = $input.all();\nconst storySentences = allItems.map(item => item.json.sentence);\nconst script = storySentences.join(' ');\nreturn { script, storyId: allItems[0].json.storyId, name: allItems[0].json.name, imageBinaries: $json.imageBinary };"
+      },
+      "id": "054e91c8-8463-4c36-b02b-242be29a602d",
+      "name": "Prepare Audio Script",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        880,
+        -112
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "object",
+        "operation": "create",
+        "bucketName": "mad-lib-junction2025",
+        "objectName": "={{ $json.storyId }}_frame_{{ $json.frameIndex }}.png",
+        "createBinaryPropertyName": "imageBinary",
+        "createData": {},
+        "createQuery": {
+          "predefinedAcl": "publicRead"
+        },
+        "encryptionHeaders": {},
+        "requestOptions": {}
+      },
+      "id": "5a6efa54-9438-4790-8518-274208b89572",
+      "name": "Upload Images to GCS",
+      "type": "n8n-nodes-base.googleCloudStorage",
+      "typeVersion": 1,
+      "position": [
+        1104,
+        80
+      ],
+      "credentials": {
+        "googleCloudStorageOAuth2Api": {
+          "id": "enYWhLpbOjkdh44i",
+          "name": "Google Cloud Storage account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "object",
+        "operation": "create",
+        "bucketName": "mad-lib-junction2025",
+        "objectName": "={{ $json.storyId }}_audio.mp3",
+        "createData": {},
+        "createQuery": {},
+        "encryptionHeaders": {},
+        "requestOptions": {}
+      },
+      "id": "4eb2663a-3b95-4344-8565-597399716365",
+      "name": "Upload Audio to GCS",
+      "type": "n8n-nodes-base.googleCloudStorage",
+      "typeVersion": 1,
+      "position": [
+        1328,
+        -112
+      ],
+      "credentials": {
+        "googleCloudStorageOAuth2Api": {
+          "id": "enYWhLpbOjkdh44i",
+          "name": "Google Cloud Storage account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const allItems = $input.all(); const imageItems = allItems.filter(item => item.json.mediaLink && item.json.frameIndex); const audioItem = allItems.find(item => item.json.mediaLink && !item.json.frameIndex); const imageUrls = imageItems.sort((a, b) => a.json.frameIndex - b.json.frameIndex).map(item => item.json.mediaLink); const audioUrl = audioItem ? audioItem.json.mediaLink : ''; const storyId = imageItems[0]?.json.storyId || audioItem?.json.storyId; const profile = { name: imageItems[0]?.json.name || audioItem?.json.name }; return { storyId, images: imageUrls, audio: audioUrl, profile };"
+      },
+      "id": "b9012a07-60ac-4208-a1c9-3e08b89d8596",
+      "name": "Prepare Firestore Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1552,
+        -16
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "operation": "create",
+        "projectId": "junction-madai",
+        "collection": "sessions",
+        "documentId": "={{ $json.storyId }}",
+        "columns": "storyId, images, audio, profile"
+      },
+      "id": "c208a6b3-6c43-4233-910a-fb5e56b5aec3",
+      "name": "Save to Firestore",
+      "type": "n8n-nodes-base.googleFirebaseCloudFirestore",
+      "typeVersion": 1.1,
+      "position": [
+        1776,
+        -16
+      ],
+      "credentials": {
+        "googleApi": {
+          "id": "IeacPNEXn8i8QZ3w",
+          "name": "Google Service Account account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"images\": {{ $json.images }},\n  \"audio\": {{ $json.audio }}\n}",
+        "options": {}
+      },
+      "id": "4a16243a-cee2-43d2-b121-487af5d1f32b",
+      "name": "Return Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        2000,
+        -16
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "speech",
+        "voice": {
+          "__rl": true,
+          "value": "3OArekHEkHv5XvmZirVD",
+          "mode": "list",
+          "cachedResultName": "Christoffer Weiss"
+        },
+        "text": "={{ $json }}",
+        "additionalOptions": {},
+        "requestOptions": {}
+      },
+      "type": "@elevenlabs/n8n-nodes-elevenlabs.elevenLabs",
+      "typeVersion": 1,
+      "position": [
+        1104,
+        -112
+      ],
+      "id": "8f582750-ed83-4c60-9506-8c18ce8ad670",
+      "name": "Convert text to speech",
+      "credentials": {
+        "elevenLabsApi": {
+          "id": "wuJa83SLtX7afEtg",
+          "name": "ElevenLabs account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Split Story Sentences",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Story Sentences": {
+      "main": [
+        [
+          {
+            "node": "Build Gemini Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Gemini Prompt": {
+      "main": [
+        [
+          {
+            "node": "Generate Comic Frame",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Comic Frame": {
+      "main": [
+        [
+          {
+            "node": "Extract Image Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Image Data": {
+      "main": [
+        [
+          {
+            "node": "Collect All Images",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Collect All Images": {
+      "main": [
+        [
+          {
+            "node": "Prepare Audio Script",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Upload Images to GCS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Audio Script": {
+      "main": [
+        [
+          {
+            "node": "Convert text to speech",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload Images to GCS": {
+      "main": [
+        [
+          {
+            "node": "Prepare Firestore Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload Audio to GCS": {
+      "main": [
+        [
+          {
+            "node": "Prepare Firestore Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Firestore Data": {
+      "main": [
+        [
+          {
+            "node": "Save to Firestore",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save to Firestore": {
+      "main": [
+        [
+          {
+            "node": "Return Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert text to speech": {
+      "main": [
+        [
+          {
+            "node": "Upload Audio to GCS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "b22648f0-8f65-4436-b7bd-b3343a2f0c3c",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "d889a2ae406940b079051280c6554fa3c443e8ddce666c61397b1edc24273962"
+  },
+  "id": "MoVptonZOATsXcWg",
+  "tags": []
+}
