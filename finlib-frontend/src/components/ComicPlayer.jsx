@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { doc, updateDoc, getDoc } from 'firebase/firestore';
-import { db } from '../firebase.js';
+import { db } from '../firebase';
 import storiesData from '../stories/mocks.json';
 
 const ComicPlayer = () => {
@@ -15,6 +15,7 @@ const ComicPlayer = () => {
   const [isAudioPlaying, setIsAudioPlaying] = useState(true);
   const [audioStarted, setAudioStarted] = useState(false);
   const [overlayVisible, setOverlayVisible] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
   const audioRef = useRef(null);
   const touchStartX = useRef(null);
   const touchDeltaX = useRef(0);
@@ -27,16 +28,20 @@ const ComicPlayer = () => {
 
     const load = async () => {
       let session = JSON.parse(localStorage.getItem('session')) || null;
+      let profile = JSON.parse(localStorage.getItem('profile')) || null;
       if (!session && sessionId) {
         try {
           const snap = await getDoc(doc(db, 'users', 'anonymous', 'sessions', sessionId));
           if (snap.exists()) session = snap.data();
+          const profileSnap = await getDoc(doc(db, 'users', 'anonymous', 'profile'));
+          if (profileSnap.exists()) profile = profileSnap.data();
         } catch (err) {
-          console.warn('Failed to fetch session from Firestore:', err);
+          console.warn('Failed to fetch session/profile from Firestore:', err);
         }
       }
 
       const selectedStory = storiesData.find(s => s.id === (session && session.storyId));
+      let comicData = selectedStory.comic;
       setStory(selectedStory);
 
       // Build answers map: placeholder numbers (1-based) -> answer text
@@ -49,8 +54,38 @@ const ComicPlayer = () => {
       }
       setAnswersMap(answersObj);
 
+      // For demo, use local images instead of generating
+      if (session && !session.comicImages && selectedStory) {
+        setIsGenerating(true);
+        // Simulate generation delay
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        // Use local mock images
+        const mockImages = ['/img/1.png', '/img/2.png', '/img/3.png', '/img/4.png', '/img/5.png'];
+        const mockAudio = selectedStory.comic.audio; // Keep static audio for demo
+        // Update session with mock data
+        session.comicImages = mockImages;
+        session.comicAudio = mockAudio;
+        localStorage.setItem('session', JSON.stringify(session));
+        await updateDoc(doc(db, 'users', 'anonymous', 'sessions', sessionId), {
+          comicImages: mockImages,
+          comicAudio: mockAudio
+        });
+        // Update comicData to use mock
+        comicData = { images: mockImages, audio: mockAudio };
+        // Update story with mock comic
+        setStory({ ...selectedStory, comic: comicData });
+        setIsGenerating(false);
+      }
+
+      // Set up audio with the correct source
       if (selectedStory) {
-        audioRef.current = new Audio(selectedStory.comic.audio);
+        // Use generated comic if available, else fallback to static
+        const finalComicData = session && session.comicImages ? {
+          images: session.comicImages,
+          audio: session.comicAudio
+        } : comicData;
+
+        audioRef.current = new Audio(finalComicData.audio);
         // Ensure audio is on by default (unmuted + full volume)
         audioRef.current.muted = false;
         audioRef.current.volume = 1.0;
@@ -173,11 +208,12 @@ const ComicPlayer = () => {
   };
 
   const handleFinish = async () => {
-    // Update session with comic URLs (mocked) and navigate
+    // Update session with comic URLs if not already done
+    const session = JSON.parse(localStorage.getItem('session')) || {};
     try {
       await updateDoc(doc(db, 'users', 'anonymous', 'sessions', sessionId), {
-        comicImages: story.comic.images,
-        comicAudio: story.comic.audio
+        comicImages: session.comicImages || story.comic.images,
+        comicAudio: session.comicAudio || story.comic.audio
       });
     } catch (err) {
       console.warn('Firestore update failed:', err);
@@ -186,6 +222,23 @@ const ComicPlayer = () => {
   };
 
   if (!story) return <div>Loading...</div>;
+
+  if (isGenerating) {
+    return (
+      <div className="comic-player">
+        <div className="comic-card">
+          <div className="comic-title">Generating Your Comic...</div>
+          <div style={{ textAlign: 'center', padding: '2rem' }}>
+            <div style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>🎨 Creating AI images...</div>
+            <div style={{ fontSize: '1.2rem' }}>🎵 Generating Finnish narration...</div>
+            <div style={{ marginTop: '2rem', fontSize: '1rem', color: '#666' }}>
+              This may take 30-60 seconds
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="comic-player">

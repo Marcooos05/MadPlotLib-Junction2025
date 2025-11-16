@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { doc, getDoc } from 'firebase/firestore';
-import { db } from '../firebase.js';
+import { db } from '../firebase';
 import storiesData from '../stories/mocks.json';
 
 const WhatIf = () => {
@@ -60,7 +60,7 @@ const WhatIf = () => {
 
   if (!story) return <div>Loading...</div>;
   const activeWhatIf = (activeIndex != null && story) ? story.whatIfs[activeIndex] : null;
-  const modalImg = activeWhatIf ? (activeWhatIf.image || (story?.comic?.images || [])[Math.min(activeIndex + 1, Math.max(0, (story?.comic?.images||[]).length - 1))] || (story?.comic?.images || [])[0]) : null;
+  const modalImg = activeWhatIf ? `/img/whatif${activeIndex + 1}.png` : null;
 
   return (
     <div className="whatif">
@@ -70,7 +70,7 @@ const WhatIf = () => {
         <div className="whatif-cards">
           {story.whatIfs.map((whatIf, index) => {
             const frames = story?.comic?.images || [];
-            const thumb = whatIf.thumbImage || frames[index] || frames[0] || `https://via.placeholder.com/600x360?text=${encodeURIComponent(whatIf.title)}`;
+            const thumb = `/img/whatif${index + 1}.png`;
             return (
               <div
                 key={index}
@@ -98,7 +98,7 @@ const WhatIf = () => {
             <div className="whatif-modal-content" aria-labelledby={`whatif-title-${activeIndex}`}>
               <button className="modal-close" onClick={closeModal} aria-label="Close">✕</button>
               <h3 id={`whatif-title-${activeIndex}`}>{activeWhatIf.title}</h3>
-              <img src={modalImg || ('https://via.placeholder.com/900x540?text=' + encodeURIComponent(activeWhatIf.title))} alt={activeWhatIf.title} className="modal-image" />
+              <img src={modalImg || ('https://via.placeholder.com/900x540?text=' + encodeURIComponent(activeWhatIf.title))} alt={activeWhatIf.title} className="modal-image" style={{ maxWidth: '60%', height: 'auto', maxHeight: '50vh', display: 'block', margin: '0 auto' }} />
               <div className="whatif-modal-text">
                 <p className="alternate-ending">{fillSentence(activeWhatIf.modifiedSentence5)}</p>
                 <p className="explanation">{activeWhatIf.explanation}</p>

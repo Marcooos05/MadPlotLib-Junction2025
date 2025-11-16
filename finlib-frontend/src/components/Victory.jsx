@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
-import { db } from '../firebase.js';
+import { db } from '../firebase';
 import storiesData from '../stories/mocks.json';
 
 const Victory = () => {
@@ -67,7 +67,7 @@ const Victory = () => {
 
   if (!story) return <div>Loading...</div>;
 
-  const totalFrames = story.comic?.images?.length || 0;
+  const totalFrames = (session?.comicImages || story.comic?.images || []).length;
   const prevFrame = () => setFrameIndex(i => Math.max(0, i - 1));
   const nextFrame = () => setFrameIndex(i => Math.min(totalFrames - 1, i + 1));
 
@@ -95,6 +95,17 @@ const Victory = () => {
           <div className="victory-main">
             <h1 className="victory-title">🎉 Victory! 🎉</h1>
 
+            <div className="badge-hero">
+              {badgeImg ? (
+                <img src={badgeImg} alt={story.badge} className="badge-image" />
+              ) : (
+                <>
+                  <span className="badge-emoji">🏆</span>
+                  <h3>{story.badge}</h3>
+                </>
+              )}
+            </div>
+
             <div className="lessons">
               <h4>Lessons Learned:</h4>
               <ul>
@@ -104,11 +115,17 @@ const Victory = () => {
               </ul>
             </div>
 
+            <div className="share-wrap">
+              <button className="share-btn" onClick={handleShare}>Share My Victory! 📤</button>
+            </div>
+          </div>
+
+          <aside className="victory-side">
             <div className="stitched-comic">
               <h4>Your Comic Story:</h4>
               <div className="comic-player-mini">
                 <div className="comic-frame mini">
-                  <img src={story.comic.images[frameIndex]} alt={`Frame ${frameIndex + 1}`} />
+                  <img src={(session?.comicImages || story.comic.images)[frameIndex]} alt={`Frame ${frameIndex + 1}`} />
                 </div>
                 <div className="comic-caption">{fillSentence((story.storySentences && story.storySentences[frameIndex]) || story.shortDescription)}</div>
                 <div className="nav-row visible" style={{marginTop: 8}}>
@@ -121,23 +138,6 @@ const Victory = () => {
                   <div className="progress-bar" style={{width: `${totalFrames ? ((frameIndex + 1) / totalFrames) * 100 : 0}%`}} />
                 </div>
               </div>
-            </div>
-
-            <div className="share-wrap">
-              <button className="share-btn" onClick={handleShare}>Share My Victory! 📤</button>
-            </div>
-          </div>
-
-          <aside className="victory-side">
-            <div className="badge-hero">
-              {badgeImg ? (
-                <img src={badgeImg} alt={story.badge} className="badge-image" />
-              ) : (
-                <>
-                  <span className="badge-emoji">🏆</span>
-                  <h3>{story.badge}</h3>
-                </>
-              )}
             </div>
           </aside>
         </div>
