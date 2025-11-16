@@ -619,3 +619,113 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+/* Comic Player */
+.comic-player {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.comic-frame {
+  border: 10px solid #000;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.comic-frame img {
+  width: 100%;
+  max-width: 90vw;
+  height: auto;
+  display: block;
+}
+.speaker {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 2rem;
+  animation: pulse 1s infinite;
+}
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+.replay-btn {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 24px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Quiz */
+.quiz {
+  min-height: 100vh;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.quiz-container {
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+.quiz-container h2 {
+  color: var(--text);
+  margin-bottom: 20px;
+}
+.question-card {
+  background: white;
+  border-radius: 24px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+.question {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  color: var(--text);
+}
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.option-btn {
+  background: var(--mint);
+  border: none;
+  padding: 12px;
+  border-radius: 12px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.25s;
+}
+.option-btn:hover {
+  background: var(--accent);
+}
+.feedback {
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 12px;
+  font-weight: 600;
+}
+.feedback.correct {
+  background: var(--success);
+  color: white;
+}
+.feedback.incorrect {
+  background: var(--coral);
+  color: white;
+}
