@@ -696,6 +696,26 @@ button:focus-visible {
   box-shadow: 0 6px 18px rgba(16, 185, 129, 0.12);
 }
 
+.comic-title {
+  width: 100%;
+  text-align: center;
+  font-weight: 800;
+  color: var(--text);
+  padding: 8px 6px 4px;
+  font-size: 1.05rem;
+}
+
+.next-btn {
+  background: var(--mint);
+  color: #08201a;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(163, 228, 215, 0.12);
+}
+
 @media (max-width: 420px) {
   .comic-card { max-width: 96%; padding: 12px; }
   .comic-caption { font-size: 0.9rem; }

@@ -10,6 +10,7 @@ const ComicPlayer = () => {
   const [story, setStory] = useState(null);
   const [currentFrame, setCurrentFrame] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
+  const [ended, setEnded] = useState(false);
   const audioRef = useRef(null);
 
   useEffect(() => {
@@ -33,13 +34,10 @@ const ComicPlayer = () => {
         if (prev < story.comic.images.length - 1) {
           return prev + 1;
         } else {
+          // Last frame reached: stop auto-advance and mark ended
           setIsPlaying(false);
-          // Update session with comic URLs (mocked)
-          updateDoc(doc(db, 'users', 'anonymous', 'sessions', sessionId), {
-            comicImages: story.comic.images,
-            comicAudio: story.comic.audio
-          }).catch(err => console.warn('Firestore update failed:', err));
-          navigate(`/quiz/${sessionId}`);
+          setEnded(true);
+          // Do NOT auto-navigate. Wait for user action.
           return prev;
         }
       });
@@ -51,10 +49,24 @@ const ComicPlayer = () => {
   const handleReplay = () => {
     setCurrentFrame(0);
     setIsPlaying(true);
+    setEnded(false);
     if (audioRef.current) {
       audioRef.current.currentTime = 0;
       audioRef.current.play().catch(err => console.warn('Audio replay failed:', err));
     }
+  };
+
+  const handleNext = async () => {
+    // Update session with comic URLs (mocked) and navigate
+    try {
+      await updateDoc(doc(db, 'users', 'anonymous', 'sessions', sessionId), {
+        comicImages: story.comic.images,
+        comicAudio: story.comic.audio
+      });
+    } catch (err) {
+      console.warn('Firestore update failed:', err);
+    }
+    navigate(`/quiz/${sessionId}`);
   };
 
   if (!story) return <div>Loading...</div>;
@@ -62,15 +74,20 @@ const ComicPlayer = () => {
   return (
     <div className="comic-player">
       <div className="comic-card">
+        <div className="comic-title">{story.title}</div>
+
         <div className="comic-frame">
           <img src={story.comic.images[currentFrame]} alt={`Frame ${currentFrame + 1}`} />
         </div>
 
-        <div className="comic-caption">{story.shortDescription || story.title}</div>
+        <div className="comic-caption">{(story.storySentences && story.storySentences[currentFrame]) || story.shortDescription || story.title}</div>
 
         <div className="card-controls">
           <div className="speaker" aria-hidden="true">🔊</div>
-          <button className="replay-btn" onClick={handleReplay} aria-label="Replay comic">Replay</button>
+          <div style={{display: 'flex', gap: 8}}>
+            <button className="replay-btn" onClick={handleReplay} aria-label="Replay comic">Replay</button>
+            {ended && <button className="next-btn" onClick={handleNext}>Next</button>}
+          </div>
         </div>
       </div>
     </div>
