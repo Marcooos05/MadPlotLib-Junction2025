@@ -84,6 +84,9 @@ const WhatIf = () => {
                       <p className="short">{whatIf.explanation}</p>
                     </div>
                   </div>
+              </div>
+            );
+          })}
 
         {/* Modal for large preview */}
         {activeIndex != null && (() => {
