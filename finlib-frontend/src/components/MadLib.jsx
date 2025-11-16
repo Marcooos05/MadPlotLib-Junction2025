@@ -4,6 +4,16 @@ import { doc, setDoc } from 'firebase/firestore';
 import { db } from '../firebase.js';
 import storiesData from '../stories/mocks.json';
 
+// Small helper for category emoji fallback
+const emojiForCategory = (cat) => {
+  switch ((cat || '').toLowerCase()) {
+    case 'debt': return '💳';
+    case 'budgeting': return '💰';
+    case 'scams': return '⚠️';
+    default: return '📘';
+  }
+};
+
 const MadLib = () => {
   const { storyId } = useParams();
   const navigate = useNavigate();
@@ -34,8 +44,12 @@ const MadLib = () => {
         createdAt: new Date()
       };
       localStorage.setItem('session', JSON.stringify(sessionData));
-      // Save to Firestore
-      setDoc(doc(db, 'users', 'anonymous', 'sessions', sessionId), sessionData);
+      // Save to Firestore (best-effort)
+      try {
+        setDoc(doc(db, 'users', 'anonymous', 'sessions', sessionId), sessionData);
+      } catch (err) {
+        console.warn('Firestore save failed:', err);
+      }
       navigate(`/comic/${sessionId}`);
     }
   };
@@ -44,20 +58,30 @@ const MadLib = () => {
 
   return (
     <div className="madlib">
-      <div className="progress">Blank {currentBlank + 1} of {story.blanks.length}</div>
-      <h2>{story.title}</h2>
-      <div className="blank-input">
-        <label>{blank.prompt}</label>
-        <input
-          type="text"
-          value={answers[currentBlank] || ''}
-          onChange={handleChange}
-          placeholder="Type your answer..."
-        />
+      <div className="madlib-container">
+        <div className="progress">Blank {currentBlank + 1} of {story.blanks.length}</div>
+        <div className="madlib-header">
+          <div className="madlib-thumb">{story.thumb ? story.thumb : emojiForCategory(story.category)}</div>
+          <h2 className="madlib-title">{story.title}</h2>
+        </div>
+
+        <div className="blank-input">
+          <label className="input-label">{blank.prompt}</label>
+          <input
+            className="text-input"
+            type="text"
+            value={answers[currentBlank] || ''}
+            onChange={handleChange}
+            placeholder="Type your answer..."
+          />
+        </div>
+
+        <div className="madlib-actions">
+          <button className="cta" onClick={handleNext}>
+            {currentBlank < story.blanks.length - 1 ? 'Next' : 'Generate Comic'}
+          </button>
+        </div>
       </div>
-      <button onClick={handleNext}>
-        {currentBlank < story.blanks.length - 1 ? 'Next' : 'Generate Comic'}
-      </button>
     </div>
   );
 };

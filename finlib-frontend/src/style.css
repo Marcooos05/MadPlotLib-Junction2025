@@ -475,19 +475,85 @@ body {
 
 /* MadLib Styles */
 .madlib {
-  padding: 20px;
+  display: flex;
+  justify-content: center;
+  padding: 28px 12px 64px;
+}
+.madlib-container {
+  width: 75%;
+  max-width: 720px;
+  background: transparent;
+}
+.madlib .progress {
   text-align: center;
+  color: #6b7880;
+  margin-bottom: 8px;
+  font-weight: 600;
 }
-
-.blank-input {
-  margin: 40px 0;
+.madlib-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 18px;
 }
-
-.blank-input input {
-  width: 100%;
-  max-width: 400px;
+.madlib-thumb {
+  font-size: 1.8rem;
+  background: rgba(163,228,215,0.12);
   padding: 10px;
-  font-size: 18px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.madlib-title {
+  font-size: 1.6rem;
+  margin: 0;
+  font-weight: 700;
+}
+.blank-input {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  margin-top: 6px;
+}
+.blank-input .input-label {
+  align-self: flex-start;
+  font-weight: 600;
+  color: var(--text);
+}
+.text-input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 2px solid rgba(163,228,215,0.5);
+  font-size: 1rem;
+}
+.text-input:focus {
+  outline: none;
+  border-color: var(--success);
+  box-shadow: 0 6px 18px rgba(163,228,215,0.12);
+}
+.madlib-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+.madlib .cta {
+  background: var(--mint);
+  border: none;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+@media (max-width: 720px) {
+  .madlib-container { width: 94%; }
+  .madlib-header { flex-direction: column; gap: 6px; }
+  .madlib-title { font-size: 1.25rem; }
 }
 
 .logo {
